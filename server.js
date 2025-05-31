@@ -16,7 +16,7 @@ app.use(cors());           // Enable CORS for all origins (customize in producti
 app.use(express.json());   // Parse JSON bodies
 
 // --- Health Check or Root Route ---
-app.get('/', (req, res) => {
+app.get('/healthz', (req, res) => {
   res.send('Hello Eve / Socialive');
 });
 

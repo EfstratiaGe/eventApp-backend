@@ -148,10 +148,19 @@ router.get('/', async (req, res) => {
 // GET /api/events/:id — Single event by ID
 router.get('/:id', async (req, res) => {
   try {
-    const event = await Event.findById(req.params.id).exec();
-    if (!event) return res.status(404).json({ message: 'Event not found' });
+    const id = parseInt(req.params.id, 10);
+    if (isNaN(id)) {
+      return res.status(400).json({ message: 'Invalid eventId' });
+    }
+
+    const event = await Event.findOne({ eventId: id }).lean();
+    if (!event) {
+      return res.status(404).json({ message: 'Event not found' });
+    }
+
     res.json(event);
   } catch (err) {
+    console.error(err);
     res.status(500).json({ message: err.message });
   }
 });
@@ -159,13 +168,25 @@ router.get('/:id', async (req, res) => {
 // PUT /api/events/:id — UPDATE an event
 router.put('/:id', async (req, res) => {
   try {
-    const updated = await Event.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true }
-    );
-    res.json(updated);
+    const id = parseInt(req.params.id, 10);
+    if (isNaN(id)) {
+      return res.status(400).json({ message: 'Invalid eventId' });
+    }
+
+    const updates = req.body;
+    const updatedEvent = await Event.findOneAndUpdate(
+      { eventId: id },
+      updates,
+      { new: true, runValidators: true }
+    ).lean();
+
+    if (!updatedEvent) {
+      return res.status(404).json({ message: 'Event not found' });
+    }
+
+    res.json(updatedEvent);
   } catch (err) {
+    console.error(err);
     res.status(400).json({ message: err.message });
   }
 });
@@ -173,66 +194,92 @@ router.put('/:id', async (req, res) => {
 // DELETE /api/events/:id — Remove event
 router.delete('/:id', async (req, res) => {
   try {
-    await Event.findByIdAndDelete(req.params.id);
+    const id = parseInt(req.params.id, 10);
+    if (isNaN(id)) {
+      return res.status(400).json({ message: 'Invalid eventId' });
+    }
+
+    const deletedEvent = await Event.findOneAndDelete({ eventId: id });
+    if (!deletedEvent) {
+      return res.status(404).json({ message: 'Event not found' });
+    }
+
     res.json({ message: 'Event deleted successfully' });
   } catch (err) {
+    console.error(err);
     res.status(500).json({ message: err.message });
   }
 });
 
-// ---------------------------
-// PATCH: Update one ticket type
-// ---------------------------
-// PATCH /api/events/:id/ticketTypes/:index
+// PATCH /api/events/:id/ticketTypes/:index — Update one ticket type
 router.patch('/:id/ticketTypes/:index', async (req, res) => {
   try {
-    const { id, index } = req.params;
-    const updates = req.body; // e.g. { price: 30 } or { availableTickets: 80 }
+    const id    = parseInt(req.params.id, 10);
+    const index = parseInt(req.params.index, 10);
 
-    const event = await Event.findById(id);
-    if (!event) return res.status(404).json({ message: 'Event not found' });
+    if (isNaN(id) || isNaN(index)) {
+      return res.status(400).json({ message: 'Invalid eventId or index' });
+    }
 
-    // Ensure the index is valid
-    const idx = parseInt(index);
-    if (isNaN(idx) || idx < 0 || idx >= event.ticketTypes.length) {
+    // 1. Find the event by eventId
+    const event = await Event.findOne({ eventId: id });
+    if (!event) {
+      return res.status(404).json({ message: 'Event not found' });
+    }
+
+    // 2. Validate index boundaries
+    if (index < 0 || index >= event.ticketTypes.length) {
       return res.status(400).json({ message: 'Invalid ticket type index' });
     }
 
-    // Apply only the provided updates
-    Object.assign(event.ticketTypes[idx], updates);
+    // 3. Apply updates to the specific ticket subdocument
+    Object.assign(event.ticketTypes[index], req.body);
+
+    // 4. Save the parent document
     await event.save();
 
     res.json(event);
   } catch (err) {
+    console.error(err);
     res.status(400).json({ message: err.message });
   }
 });
 
-// ---------------------------
-// PATCH: Update one schedule entry
-// ---------------------------
-// PATCH /api/events/:id/schedule/:index
+// PATCH /api/events/:id/schedule/:index — Update one schedule entry
 router.patch('/:id/schedule/:index', async (req, res) => {
   try {
-    const { id, index } = req.params;
-    const updates = req.body; // e.g. { date: "2025-07-19" } or { location: "Volos" }
+    const id    = parseInt(req.params.id, 10);
+    const index = parseInt(req.params.index, 10);
 
-    const event = await Event.findById(id);
-    if (!event) return res.status(404).json({ message: 'Event not found' });
+    if (isNaN(id) || isNaN(index)) {
+      return res.status(400).json({ message: 'Invalid eventId or index' });
+    }
 
-    const idx = parseInt(index);
-    if (isNaN(idx) || idx < 0 || idx >= event.schedule.length) {
+    // 1. Find the event by eventId
+    const event = await Event.findOne({ eventId: id });
+    if (!event) {
+      return res.status(404).json({ message: 'Event not found' });
+    }
+
+    // 2. Validate index boundaries
+    if (index < 0 || index >= event.schedule.length) {
       return res.status(400).json({ message: 'Invalid schedule index' });
     }
 
-    // If date is provided, convert to Date
-    if (updates.date) updates.date = new Date(updates.date);
+    // 3. If the client provided a date, convert it to a Date object
+    if (req.body.date) {
+      req.body.date = new Date(req.body.date);
+    }
 
-    Object.assign(event.schedule[idx], updates);
+    // 4. Apply updates to the specific schedule subdocument
+    Object.assign(event.schedule[index], req.body);
+
+    // 5. Save the parent document
     await event.save();
 
     res.json(event);
   } catch (err) {
+    console.error(err);
     res.status(400).json({ message: err.message });
   }
 });

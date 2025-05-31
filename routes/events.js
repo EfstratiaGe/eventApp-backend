@@ -12,8 +12,27 @@ const ALLOWED_CATEGORIES = [
 // POST /api/events — CREATE a new event
 router.post('/', async (req, res) => {
   try {
-    const event = new Event(req.body);
+    // 1. Find current maximum eventId
+    //    Sort by eventId descending, limit 1 to get the highest
+    const latestEvent = await Event.findOne({})
+      .sort('-eventId')
+      .select('eventId')
+      .lean();
+
+    // 2. Compute the next eventId
+    const maxId = latestEvent ? latestEvent.eventId : 0;
+    const nextId = maxId + 1;
+
+    // 3. Merge eventId into the request body
+    const data = {
+      ...req.body,
+      eventId: nextId
+    };
+
+    // 4. Create & save the new Event
+    const event = new Event(data);
     await event.save();
+
     res.status(201).json(event);
   } catch (error) {
     res.status(400).json({ message: error.message });

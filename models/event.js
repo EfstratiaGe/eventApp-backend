@@ -41,6 +41,11 @@ const ticketTypeSchema = new mongoose.Schema({
 
 // Main Event schema
 const eventSchema = new mongoose.Schema({
+  eventId: {
+    type: Number,
+    required: true,
+    unique: true
+},
   title: {
     type: String,
     required: true,

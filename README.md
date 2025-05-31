@@ -1,4 +1,5 @@
 # eventApp-backend
+
 This repo is created for the purpose of the SKG.Code Bootcamp to develop and store the back-end code of an event booking app.
 
 > **Public Repo Notice:**  
@@ -10,219 +11,480 @@ This repo is created for the purpose of the SKG.Code Bootcamp to develop and sto
 ## 📦 Installation
 
 1. **Clone** the repository:
-
    ```bash
    git clone https://github.com/EfstratiaGe/eventApp-backend.git
    cd eventApp-backend
+   ```
 
 2. **Install** dependencies:
+   ```bash
+   npm install
+   ```
 
-    ```bash
-    npm install
-
-3. **Create** a .env file in the project root (and do not commit it):
-
-    ```text
-    # .env (example - keep this file secret!)
-    MONGO_URI=<your-mongodb-connection-string>
-    PORT=<your-port>
+3. **Create** a `.env` file in the project root (and **do not** commit it):
+   ```text
+   # .env (example - keep this file secret!)
+   MONGO_URI=<your-mongodb-connection-string>
+   PORT=10000
+   ```
 
 4. **Seed** the database with sample data:
-
-    ```bash
-    npm run seed
-
-    **Note:** Add this to your **package.json** scripts if not already present:
-    ```json
-
-            "scripts": {
-            "seed": "node data/seed.js",
-            "dev": "nodemon server.js"
-            }
+   ```bash
+   npm run seed
+   ```
+   **Note:** Add this to your `package.json` scripts if not already present:
+   ```json
+   "scripts": {
+     "seed": "node data/seed.js",
+     "dev": "nodemon server.js"
+   }
+   ```
 
 5. **Start** the development server (auto-restarts on changes):
+   ```bash
+   npm run dev
+   ```
 
-    ```bash
-    npm run dev
-
+---
 
 ## 🌐 Base URL
 
-    ```arduino
-        <http://localhost:<PORT>/>
+```
+http://localhost:<PORT>/
+```
 
+Default `PORT` is **10000** if not set in `.env`.
+
+---
 
 ## 🔌 API Endpoints
 
-1. **Health Check**
+### 1. Health Check
 
-    | Method | Path | Description              | Response Example          |
-    | ------ | ---- | ------------------------ | ------------------------- |
-    | GET    | `/`  | Verify server is running | `"Hello Eve / Socialive"` |
+| Method | Path         | Description              | Response Example           |
+| ------ | ------------ | ------------------------ | -------------------------- |
+| GET    | `/healthz`   | Verify server is running | `"Hello Eve / Socialive"`  |
 
-2. **Events**
+---
 
-    2.a. **List Events**
+### 2. Events
 
-            ```bash
-            GET /api/events
+> **Note:** Every event document now has both a MongoDB `_id` (ObjectId) and a numeric `eventId` (sequential).  
+> - **`_id`** is for internal MongoDB use.  
+> - **`eventId`** is an integer that starts at 1 and increments by 1 for each new event.  
+> - When you **CREATE** a new event via `POST`, you do **not** supply `eventId`—it’s assigned automatically.
 
-        **Query Parameters (all optional):**
+#### 2.a. List Events
 
-            | Parameter              | Description                                                                                  |
-            | ---------------------- | -------------------------------------------------------------------------------------------- |
-            | `search`               | Full-text search on title, description, tags                                                 |
-            | `city`                 | Case-insensitive match on any `schedule.location`                                            |
-            | `category`             | One of: `concert`, `theatre`, `sports`, `festival`, `conference`, `comedy`, `workshop`, etc. |
-            | `dateFrom`             | ISO date string; include events with `schedule.date >= dateFrom`                             |
-            | `dateTo`               | ISO date string; include events with `schedule.date <= dateTo`                               |
-            | `availableOnly`        | `true` / `false`; if `true`, only events with tickets available                              |
-            | `upcoming`             | `true` / `false`; if `true` (default), only future events                                    |
-            | `minPrice`, `maxPrice` | Numeric bounds applied to any `ticketTypes.price`                                            |
-            | `sortBy`               | Field to sort by (e.g. `title`, `schedule.date`, `ticketTypes.price`, etc.)                  |
-            | `sortOrder`            | `asc` (default) or `desc`                                                                    |
-            | `page`                 | Page number (1-based; default `1`)                                                           |
-            | `limit`                | Items per page (default `20`)                                                                |
+```
+GET /api/events
+```
 
-        **Success Response (200 OK):**
+**Query Parameters** (all optional):
 
-            ```json
-            {
-            "page": 1,
-            "totalPages": 2,
-            "totalResults": 35,
-            "events": [ /* array of event objects */ ]
-            }
+| Parameter               | Description                                                                                       |
+| ----------------------- | ------------------------------------------------------------------------------------------------- |
+| `search`                | Full-text search on `title`, `description`, or `tags`.                                            |
+| `city`                  | Case-insensitive match on any `schedule.location`.                                                |
+| `category`              | One of: `concert`, `theatre`, `sports`, `festival`, `conference`, `comedy`, `workshop`, etc.     |
+| `dateFrom`              | ISO date; include events with at least one `schedule.date >= dateFrom`.                           |
+| `dateTo`                | ISO date; include events with at least one `schedule.date <= dateTo`.                             |
+| `availableOnly`         | `true`/`false`; if `true`, only events having any `ticketType.availableTickets > 0`.             |
+| `upcoming`              | `true`/`false`; if `true` (default), only events that have a `schedule.date >= today`.           |
+| `minPrice`, `maxPrice`  | Numeric range applied to any `ticketTypes.price`.                                                 |
+| `sortBy`                | Field to sort by (e.g. `title`, `schedule.date`, `ticketTypes.price`, `eventId`).                 |
+| `sortOrder`             | `asc` (default) or `desc`.                                                                        |
+| `page`                  | Page number (1-based; default `1`).                                                               |
+| `limit`                 | Items per page (default `20`).                                                                     |
 
-    2.b. **Create Event**
+**Success Response** _(200 OK)_:
 
-            ```bash
-            POST /api/events
+```json
+{
+  "page": 1,
+  "totalPages": 2,
+  "totalResults": 35,
+  "events": [
+    {
+      "_id": "64a9e2c1f9b2f63320fa1e7d",
+      "eventId": 1,
+      "title": "Γιάννης Χαρούλης Tour 2025",
+      "description": "Ο Γιάννης Χαρούλης παρουσιάζει την καλοκαιρινή του περιοδεία…",
+      "category": "concert",
+      "image": "https://upload.wikimedia.org/...jpg",
+      "schedule": [
+        { "date": "2025-06-15T00:00:00.000Z", "location": "Αθήνα" },
+        { "date": "2025-06-20T00:00:00.000Z", "location": "Θεσσαλονίκη" }
+      ],
+      "ticketTypes": [
+        { "type": "General Admission", "price": 25, "availableTickets": 500 },
+        { "type": "VIP", "price": 50, "availableTickets": 100 }
+      ],
+      "tags": ["λαϊκή", "παραδοσιακή", "live"],
+      "createdAt": "2025-05-20T12:00:00.000Z",
+      "updatedAt": "2025-05-20T12:00:00.000Z",
+      "__v": 0
+    }
+  ]
+}
+```
 
-        **Body (application/json):**
+---
 
-            ```json
-            {
-            "title": "Sample Event",
-            "description": "Optional description.",
-            "category": "concert",
-            "image": "https://example.com/img.jpg",
-            "schedule": [
-                { "date": "2025-07-01", "location": "Athens" }
-            ],
-            "ticketTypes": [
-                { "type": "General", "price": 25, "availableTickets": 100 }
-            ],
-            "tags": ["music","summer"]
-            }
-        
-        **Success Response (201 Created):**
+#### 2.b. Create Event
 
-            ```json
-            { /* the created event object */ }
+```
+POST /api/events
+```
 
-    2.c. **Get Single Event**
+- **Do NOT** include `eventId` or `_id` in your request body.  
+- The server assigns `eventId = (current max eventId) + 1`.
 
-            ```bash
-            GET /api/events/:id
+**Request Body** _(application/json)_:
 
-            #:id — Event _id
-        
-        **Success Response (200 OK):**
+```json
+{
+  "title": "Sample Event",
+  "description": "An example event created via API",
+  "category": "other",
+  "image": "https://example.com/sample.jpg",
+  "schedule": [
+    { "date": "2025-09-01", "location": "Volos" }
+  ],
+  "ticketTypes": [
+    { "type": "General", "price": 20, "availableTickets": 100 }
+  ],
+  "tags": ["test", "api"]
+}
+```
 
-            ```json
-            { /* the event object */ }
-    
-    2.d. **Update Entire Event**
+**Success Response** _(201 Created)_:
 
-            ```bash
-            PUT /api/events/:id
+```json
+{
+  "_id": "64b0f6a9f3c8f19933d7e1a2",
+  "eventId": 11,
+  "title": "Sample Event",
+  "description": "An example event created via API",
+  "category": "other",
+  "image": "https://example.com/sample.jpg",
+  "schedule": [
+    { "date": "2025-09-01T00:00:00.000Z", "location": "Volos" }
+  ],
+  "ticketTypes": [
+    { "type": "General", "price": 20, "availableTickets": 100 }
+  ],
+  "tags": ["test", "api"],
+  "createdAt": "2025-05-31T11:00:00.000Z",
+  "updatedAt": "2025-05-31T11:00:00.000Z",
+  "__v": 0
+}
+```
 
-            #Requires full event JSON (same shape as POST).
+---
 
-        **Success Response (200 OK):**
+#### 2.c. Get Single Event
 
-            ```json
-            { /* the updated event object */ }
+```
+GET /api/events/:eventId
+```
 
-    2.e. **Delete Event**
+- `:eventId` — Numeric `eventId` (not Mongo `_id`).
 
-            ```bash
-            DELETE /api/events/:id
+**Example URL**:
+```
+GET https://eventapp-backend-c8xe.onrender.com/api/events/1
+```
 
-            #Deletes the event.
+**Success Response** _(200 OK)_:
 
-        **Success Response (200 OK):**
+```json
+{
+  "_id": "64a9e2c1f9b2f63320fa1e7d",
+  "eventId": 1,
+  "title": "Γιάννης Χαρούλης Tour 2025",
+  "description": "Ο Γιάννης Χαρούλης παρουσιάζει την καλοκαιρινή του περιοδεία…",
+  "category": "concert",
+  "image": "https://upload.wikimedia.org/...jpg",
+  "schedule": [
+    { "date": "2025-06-15T00:00:00.000Z", "location": "Αθήνα" },
+    { "date": "2025-06-20T00:00:00.000Z", "location": "Θεσσαλονίκη" }
+  ],
+  "ticketTypes": [
+    { "type": "General Admission", "price": 25, "availableTickets": 500 },
+    { "type": "VIP", "price": 50, "availableTickets": 100 }
+  ],
+  "tags": ["λαϊκή", "παραδοσιακή", "live"],
+  "createdAt": "2025-05-20T12:00:00.000Z",
+  "updatedAt": "2025-05-20T12:00:00.000Z",
+  "__v": 0
+}
+```
 
-            ```json
-            { "message": "Event deleted successfully" }
+---
 
-    2.f. **Update Ticket Type by Index**
+#### 2.d. Update Entire Event
 
-            ```ruby
-            PATCH /api/events/:id/ticketTypes/:index
+```
+PUT /api/events/:eventId
+```
 
-            #:id — event _id
-            #:index — zero-based index in ticketTypes array
+- Replace the entire event document (except for `_id`, `eventId`).  
+- You must send a full valid event body (including `schedule`, `ticketTypes`, etc.).  
 
-        **Body (application/json):**
+**Example URL**:
+```
+PUT https://eventapp-backend-c8xe.onrender.com/api/events/1
+```
 
-            ```json
-            { "price": 30 }
-            // or
-            { "type": "VIP" }
-            // or
-            { "availableTickets": 150 }
-        
-        **Success Response (200 OK):**
+**Request Body** _(application/json)_ (full event object):
+```json
+{
+  "title": "Γιάννης Χαρούλης Tour 2025 - Updated",
+  "description": "Updated description…",
+  "category": "concert",
+  "image": "https://example.com/newimage.jpg",
+  "schedule": [
+    { "date": "2025-06-15", "location": "Αθήνα" },
+    { "date": "2025-06-21", "location": "Θεσσαλονίκη" }
+  ],
+  "ticketTypes": [
+    { "type": "General Admission", "price": 30, "availableTickets": 400 },
+    { "type": "VIP", "price": 60, "availableTickets": 50 }
+  ],
+  "tags": ["updated", "concert"]
+}
+```
 
-            ```json
-            { /* the full event object with updated ticketTypes */ }
+**Success Response** _(200 OK)_:
 
-    2.g. **Update Schedule Entry by Index**
+```json
+{
+  "_id": "64a9e2c1f9b2f63320fa1e7d",
+  "eventId": 1,
+  "title": "Γιάννης Χαρούλής Tour 2025 - Updated",
+  "description": "Updated description…",
+  "category": "concert",
+  "image": "https://example.com/newimage.jpg",
+  "schedule": [
+    { "date": "2025-06-15T00:00:00.000Z", "location": "Αθήνα" },
+    { "date": "2025-06-21T00:00:00.000Z", "location": "Θεσσαλονίκη" }
+  ],
+  "ticketTypes": [
+    { "type": "General Admission", "price": 30, "availableTickets": 400 },
+    { "type": "VIP", "price": 60, "availableTickets": 50 }
+  ],  
+  "tags": ["updated", "concert"],
+  "createdAt": "2025-05-20T12:00:00.000Z",
+  "updatedAt": "2025-05-31T12:00:00.000Z",
+  "__v": 0
+}
+```
 
-            ```ruby
-            PATCH /api/events/:id/schedule/:index
+---
 
-            #:id — event _id
-            #:index — zero-based index in schedule array
+#### 2.e. Delete Event
 
-        **Body (application/json):**
+```
+DELETE /api/events/:eventId
+```
 
-            ```json
-            { "location": "Volos" }
-            // or
-            { "date": "2025-08-01" }
+- Deletes the event with the given numeric `eventId`.
 
-        
-        **Success Response (200 OK):**
+**Example URL**:
+```
+DELETE https://eventapp-backend-c8xe.onrender.com/api/events/1
+```
 
-            ```json
-            { /* the full event object with updated schedule */ }
+**Success Response** _(200 OK)_:
+```json
+{ "message": "Event deleted successfully" }
+```
 
+---
+
+## 🔄 Partial Updates (PATCH)
+
+#### 3.a. Update a Ticket Type by Index
+
+```
+PATCH /api/events/:eventId/ticketTypes/:index
+```
+
+- `:eventId` — Numeric `eventId` of the event.  
+- `:index` — zero-based index within the `ticketTypes` array.  
+- Body can include any of the `type`, `price`, or `availableTickets` fields to update just that subdocument.
+
+**Example URL**:
+```
+PATCH https://eventapp-backend-c8xe.onrender.com/api/events/1/ticketTypes/0
+```
+
+**Request Body** _(application/json)_:
+```json
+{ "price": 35 }
+```
+
+This only updates `ticketTypes[0].price` to `35`.
+
+**Success Response** _(200 OK)_:
+```json
+{
+  "_id": "64a9e2c1f9b2f63320fa1e7d",
+  "eventId": 1,
+  "title": "Γιάννης Χαρούλης Tour 2025",
+  "ticketTypes": [
+    { "type": "General Admission", "price": 35, "availableTickets": 400 },
+    { "type": "VIP", "price": 60, "availableTickets": 50 }
+  ]
+}
+```
+
+---
+
+#### 3.b. Update a Schedule Entry by Index
+
+```
+PATCH /api/events/:eventId/schedule/:index
+```
+
+- `:eventId` — Numeric `eventId` of the event.  
+- `:index` — zero-based index within the `schedule` array.  
+- Body can include either `date` (ISO string) or `location`, or both.
+
+**Example URL**:
+```
+PATCH https://eventapp-backend-c8xe.onrender.com/api/events/1/schedule/1
+```
+
+**Request Body** _(application/json)_:
+```json
+{ "location": "Volos" }
+```
+
+This only updates `schedule[1].location` to `"Volos"`.
+
+**Success Response** _(200 OK)_:
+```json
+{
+  "_id": "64a9e2c1f9b2f63320fa1e7d",
+  "eventId": 1,
+  "title": "Γιάννης Χαρούλης Tour 2025",
+  "schedule": [
+    { "date": "2025-06-15T00:00:00.000Z", "location": "Αθήνα" },
+    { "date": "2025-06-20T00:00:00.000Z", "location": "Volos" }
+  ]
+}
+```
+
+---
 
 ## 🔐 Environment & Security
 
-    - Never commit your real .env file.
+- **Never** commit your real `.env` file.  
+- Ensure `.env` is listed in `.gitignore`.  
+- Use environment variables for **all** secrets (database URIs, API keys).
 
-    - Ensure .env is listed in .gitignore.
-
-    - Use environment variables for all secrets (database URIs, API keys).
+---
 
 ## 📑 Data Model (Event)
 
-    ```js
-    {
-    title: String,
-    description: String,
-    category: String,       // among ALLOWED_CATEGORIES
-    image: String,
-    schedule: [             // at least one
-        { date: Date, location: String }
+Below is the Mongoose schema structure. When reading or writing events:
+
+- **`_id`** is MongoDB’s default ObjectId (always present).  
+- **`eventId`** is a required, unique Number, auto‐incremented (1, 2, 3, …).
+
+```js
+const eventSchema = new mongoose.Schema({
+  eventId: {
+    type: Number,
+    required: true,
+    unique: true
+  },
+  title: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  description: {
+    type: String,
+    default: ""
+  },
+  category: {
+    type: String,
+    required: true,
+    enum: [
+      "concert", "theatre", "sports", "festival",
+      "conference", "comedy", "workshop", "exhibition",
+      "movie", "other"
+    ]
+  },
+  image: {
+    type: String,
+    default: ""
+  },
+  schedule: {
+    type: [
+      {
+        date: {
+          type: Date,
+          required: true
+        },
+        location: {
+          type: String,
+          required: true,
+          trim: true
+        }
+      }
     ],
-    ticketTypes: [          // at least one
-        { type: String, price: Number, availableTickets: Number }
+    required: true,
+    validate: (v) => v.length > 0
+  },
+  ticketTypes: {
+    type: [
+      {
+        type: {
+          type: String,
+          required: true,
+          trim: true
+        },
+        price: {
+          type: Number,
+          required: true,
+          min: 0
+        },
+        availableTickets: {
+          type: Number,
+          required: true,
+          min: 0
+        }
+      }
     ],
-    tags: [ String ],
-    organizer: ObjectId     // ref: User (future use)
-    }
+    required: true,
+    validate: (v) => v.length > 0
+  },
+  tags: {
+    type: [String],
+    default: []
+  },
+  organizer: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"  // future organizer reference
+  }
+}, { timestamps: true });
+
+// For text‐search on title/description/tags:
+eventSchema.index({ title: "text", description: "text", tags: "text" });
+```
+
+---
+
+## 🚀 Next Steps
+
+**Frontend Integration**: Make sure your Android app’s base URL is set to  
+   ```
+   https://eventapp-backend-c8xe.onrender.com/api/
+   ```
+
+---
+

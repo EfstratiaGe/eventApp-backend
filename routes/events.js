@@ -24,13 +24,13 @@ router.post('/', async (req, res) => {
     const nextId = maxId + 1;
 
     // 3. Merge eventId into the request body
-    const data = {
+    const newData = {
       ...req.body,
       eventId: nextId
     };
 
     // 4. Create & save the new Event
-    const event = new Event(data);
+    const event = new Event(newData);
     await event.save();
 
     res.status(201).json(event);

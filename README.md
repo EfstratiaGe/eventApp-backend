@@ -101,30 +101,29 @@ GET /api/events
 
 ```json
 {
-  "page": 1,
-  "totalPages": 2,
-  "totalResults": 35,
   "events": [
     {
       "_id": "64a9e2c1f9b2f63320fa1e7d",
       "eventId": 1,
-      "title": "Γιάννης Χαρούλης Tour 2025",
-      "description": "Ο Γιάννης Χαρούλης παρουσιάζει την καλοκαιρινή του περιοδεία…",
+      "title": "Giannis Haroulis Tour 2025",
+      "description": "Giannis Haroulis presents his summer tour entitled 'Come to the Dance'.",
       "category": "concert",
-      "image": "https://upload.wikimedia.org/...jpg",
+      "image": "https://cdn.pixabay.com/photo/2023/01/07/21/02/concert-7705720_640.webp",
       "schedule": [
-        { "date": "2025-06-15T00:00:00.000Z", "location": "Αθήνα" },
-        { "date": "2025-06-20T00:00:00.000Z", "location": "Θεσσαλονίκη" }
+        { "date": "2025-06-15", "location": "Athens" },
+        { "date": "2025-06-20", "location": "Thessaloniki" }
       ],
       "ticketTypes": [
         { "type": "General Admission", "price": 25, "availableTickets": 500 },
         { "type": "VIP", "price": 50, "availableTickets": 100 }
       ],
-      "tags": ["λαϊκή", "παραδοσιακή", "live"],
+      "organizer": "223 Events ΙΚΕ",
+      "tags": ["popular", "traditional", "live"],
       "createdAt": "2025-05-20T12:00:00.000Z",
       "updatedAt": "2025-05-20T12:00:00.000Z",
       "__v": 0
     }
+    /* …more events… */
   ]
 }
 ```
@@ -167,13 +166,14 @@ POST /api/events
   "title": "Sample Event",
   "description": "An example event created via API",
   "category": "other",
-  "image": "https://example.com/sample.jpg",
+  "image": "https://example.com/sample.webp",
   "schedule": [
-    { "date": "2025-09-01T00:00:00.000Z", "location": "Volos" }
+    { "date": "2025-09-01", "location": "Volos" }
   ],
   "ticketTypes": [
     { "type": "General", "price": 20, "availableTickets": 100 }
   ],
+  "organizer": "Some Organizer Name",
   "tags": ["test", "api"],
   "createdAt": "2025-05-31T11:00:00.000Z",
   "updatedAt": "2025-05-31T11:00:00.000Z",
@@ -202,19 +202,20 @@ GET https://eventapp-backend-c8xe.onrender.com/api/events/1
 {
   "_id": "64a9e2c1f9b2f63320fa1e7d",
   "eventId": 1,
-  "title": "Γιάννης Χαρούλης Tour 2025",
-  "description": "Ο Γιάννης Χαρούλης παρουσιάζει την καλοκαιρινή του περιοδεία…",
+  "title": "Giannis Haroulis Tour 2025",
+  "description": "Giannis Haroulis presents his summer tour entitled 'Come to the Dance'.",
   "category": "concert",
-  "image": "https://upload.wikimedia.org/...jpg",
+  "image": "https://cdn.pixabay.com/photo/2023/01/07/21/02/concert-7705720_640.webp",
   "schedule": [
-    { "date": "2025-06-15T00:00:00.000Z", "location": "Αθήνα" },
-    { "date": "2025-06-20T00:00:00.000Z", "location": "Θεσσαλονίκη" }
+    { "date": "2025-06-15", "location": "Athens" },
+    { "date": "2025-06-20", "location": "Thessaloniki" }
   ],
   "ticketTypes": [
     { "type": "General Admission", "price": 25, "availableTickets": 500 },
     { "type": "VIP", "price": 50, "availableTickets": 100 }
   ],
-  "tags": ["λαϊκή", "παραδοσιακή", "live"],
+  "organizer": "223 Events ΙΚΕ",
+  "tags": ["popular", "traditional", "live"],
   "createdAt": "2025-05-20T12:00:00.000Z",
   "updatedAt": "2025-05-20T12:00:00.000Z",
   "__v": 0
@@ -240,18 +241,19 @@ PUT https://eventapp-backend-c8xe.onrender.com/api/events/1
 **Request Body** _(application/json)_ (full event object):
 ```json
 {
-  "title": "Γιάννης Χαρούλης Tour 2025 - Updated",
+  "title": "Giannis Haroulis Tour 2025 - Updated",
   "description": "Updated description…",
   "category": "concert",
   "image": "https://example.com/newimage.jpg",
   "schedule": [
-    { "date": "2025-06-15", "location": "Αθήνα" },
-    { "date": "2025-06-21", "location": "Θεσσαλονίκη" }
+    { "date": "2025-06-15", "location": "Athens" },
+    { "date": "2025-06-21", "location": "Thessaloniki" }
   ],
   "ticketTypes": [
     { "type": "General Admission", "price": 30, "availableTickets": 400 },
     { "type": "VIP", "price": 60, "availableTickets": 50 }
   ],
+  "organizer": "223 Events ΙΚΕ",
   "tags": ["updated", "concert"]
 }
 ```
@@ -262,18 +264,19 @@ PUT https://eventapp-backend-c8xe.onrender.com/api/events/1
 {
   "_id": "64a9e2c1f9b2f63320fa1e7d",
   "eventId": 1,
-  "title": "Γιάννης Χαρούλής Tour 2025 - Updated",
+  "title": "Giannis Haroulis Tour 2025 - Updated",
   "description": "Updated description…",
   "category": "concert",
-  "image": "https://example.com/newimage.jpg",
+  "image": "https://example.com/newimage.webp",
   "schedule": [
-    { "date": "2025-06-15T00:00:00.000Z", "location": "Αθήνα" },
-    { "date": "2025-06-21T00:00:00.000Z", "location": "Θεσσαλονίκη" }
+    { "date": "2025-06-15", "location": "Athens" },
+    { "date": "2025-06-21", "location": "Thessaloniki" }
   ],
   "ticketTypes": [
     { "type": "General Admission", "price": 30, "availableTickets": 400 },
     { "type": "VIP", "price": 60, "availableTickets": 50 }
-  ],  
+  ],
+  "organizer": "223 Events ΙΚΕ",
   "tags": ["updated", "concert"],
   "createdAt": "2025-05-20T12:00:00.000Z",
   "updatedAt": "2025-05-31T12:00:00.000Z",
@@ -332,11 +335,20 @@ This only updates `ticketTypes[0].price` to `35`.
 {
   "_id": "64a9e2c1f9b2f63320fa1e7d",
   "eventId": 1,
-  "title": "Γιάννης Χαρούλης Tour 2025",
+  "title": "Giannis Haroulis Tour 2025",
+  "schedule": [
+    { "date": "2025-06-15", "location": "Athens" },
+    { "date": "2025-06-20", "location": "Thessaloniki" }
+  ],
   "ticketTypes": [
     { "type": "General Admission", "price": 35, "availableTickets": 400 },
     { "type": "VIP", "price": 60, "availableTickets": 50 }
-  ]
+  ],
+  "organizer": "223 Events ΙΚΕ",
+  "tags": ["popular", "traditional", "live"],
+  "createdAt": "2025-05-20T12:00:00.000Z",
+  "updatedAt": "2025-05-31T12:30:00.000Z",
+  "__v": 0
 }
 ```
 
@@ -369,11 +381,20 @@ This only updates `schedule[1].location` to `"Volos"`.
 {
   "_id": "64a9e2c1f9b2f63320fa1e7d",
   "eventId": 1,
-  "title": "Γιάννης Χαρούλης Tour 2025",
+  "title": "Giannis Haroulis Tour 2025",
   "schedule": [
-    { "date": "2025-06-15T00:00:00.000Z", "location": "Αθήνα" },
-    { "date": "2025-06-20T00:00:00.000Z", "location": "Volos" }
-  ]
+    { "date": "2025-06-15", "location": "Athens" },
+    { "date": "2025-06-20", "location": "Volos" }
+  ],
+  "ticketTypes": [
+    { "type": "General Admission", "price": 25, "availableTickets": 500 },
+    { "type": "VIP", "price": 50, "availableTickets": 100 }
+  ],
+  "organizer": "223 Events ΙΚΕ",
+  "tags": ["popular", "traditional", "live"],
+  "createdAt": "2025-05-20T12:00:00.000Z",
+  "updatedAt": "2025-05-31T12:30:00.000Z",
+  "__v": 0
 }
 ```
 
@@ -421,7 +442,8 @@ const eventSchema = new mongoose.Schema({
   },
   image: {
     type: String,
-    default: ""
+    default: "",
+    required: false
   },
   schedule: {
     type: [
@@ -468,8 +490,9 @@ const eventSchema = new mongoose.Schema({
     default: []
   },
   organizer: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User"  // future organizer reference
+    type: String,
+    required: true,
+    trim: true
   }
 }, { timestamps: true });
 

@@ -1,156 +1,156 @@
 [
   {
-    "title": "Γιάννης Χαρούλης Tour 2025",
-    "description": "Ο Γιάννης Χαρούλης παρουσιάζει την καλοκαιρινή του περιοδεία με τίτλο 'Έλα στο Χορό'.",
+    "title": "Giannis Haroulis Tour 2025",
+    "description": "Giannis Haroulis presents his summer tour entitled 'Come to the Dance'.",
     "category": "concert",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/6/6e/%CE%A7%CE%B1%CF%81%CE%BF%CF%8D%CE%BB%CE%B7%CF%82_live_2011.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/b/b5/%CE%A7%CE%B1%CF%81%CE%BF%CF%8D%CE%BB%CE%B7%CF%82_live_2011.webp",
     "schedule": [
-      { "date": "2025-06-15", "location": "Αθήνα" },
-      { "date": "2025-06-20", "location": "Θεσσαλονίκη" }
+      { "date": "2025-06-15", "location": "Athens" },
+      { "date": "2025-06-20", "location": "Thessaloniki" }
     ],
     "ticketTypes": [
       { "type": "General Admission", "price": 25, "availableTickets": 500 },
       { "type": "VIP",               "price": 50, "availableTickets": 100 }
     ],
-    "organizer": "60d5ec49f8d2e30f8c8b4567",
-    "tags": ["λαϊκή", "παραδοσιακή", "live"]
+    "organizer": "223 Events ΙΚΕ",
+    "tags": ["popular", "traditional", "live"]
   },
   {
     "title": "La Femme Live in Athens",
-    "description": "Το γαλλικό συγκρότημα La Femme επιστρέφει στην Αθήνα για μια μοναδική συναυλία.",
+    "description": "The French band La Femme returns to Athens for a unique concert.",
     "category": "concert",
-    "image": "https://images.pexels.com/photos/167636/pexels-photo-167636.jpeg",
+    "image": "https://images.pexels.com/photos/167636/pexels-photo-167636.webp",
     "schedule": [
-      { "date": "2025-07-10", "location": "Αθήνα" }
+      { "date": "2025-07-10", "location": "Athens" }
     ],
     "ticketTypes": [
       { "type": "General Admission", "price": 30, "availableTickets": 300 },
       { "type": "VIP",               "price": 60, "availableTickets": 50 }
     ],
-    "organizer": "60d5ec49f8d2e30f8c8b4568",
+    "organizer": "French Institute of Greece",
     "tags": ["rock", "indie", "live"]
   },
   {
-    "title": "Αντιγόνη του Σοφοκλή",
-    "description": "Η κλασική τραγωδία του Σοφοκλή παρουσιάζεται στο Αρχαίο Θέατρο Επιδαύρου.",
+    "title": "Sophocles' Antigone",
+    "description": "Sophocles' classic tragedy is presented at the Ancient Theatre of Epidaurus.",
     "category": "theatre",
-    "image": "https://cdn.pixabay.com/photo/2017/06/04/18/24/epidaurus-2375664_1280.jpg",
+    "image": "https://cdn.pixabay.com/photo/2017/06/04/18/24/epidaurus-2375664_1280.webp",
     "schedule": [
-      { "date": "2025-07-05", "location": "Επίδαυρος" },
-      { "date": "2025-07-06", "location": "Επίδαυρος" }
+      { "date": "2025-07-05", "location": "Epidaurus" },
+      { "date": "2025-07-06", "location": "Epidaurus" }
     ],
     "ticketTypes": [
       { "type": "Standard", "price": 20, "availableTickets": 400 },
       { "type": "Premium",  "price": 35, "availableTickets": 100 }
     ],
-    "organizer": "60d5ec49f8d2e30f8c8b4569",
-    "tags": ["αρχαίο δράμα", "τραγωδία", "Σοφοκλής"]
+    "organizer": "Athens Epidaurus Festival",
+    "tags": ["ancient drama", "tragedy", "Sophocles"]
   },
   {
-    "title": "Μια άλλη Θήβα",
-    "description": "Μια σύγχρονη θεατρική παράσταση που εξερευνά τις ανθρώπινες σχέσεις.",
+    "title": "Another Thebes",
+    "description": "A contemporary theatrical performance that explores human relationships.",
     "category": "theatre",
-    "image": "https://cdn.pixabay.com/photo/2016/11/29/05/08/theater-1866470_1280.jpg",
+    "image": "https://cdn.pixabay.com/photo/2016/11/29/05/08/theater-1866470_1280.webp",
     "schedule": [
-      { "date": "2025-08-10", "location": "Αθήνα" }
+      { "date": "2025-08-10", "location": "Athens" }
     ],
     "ticketTypes": [
       { "type": "Standard", "price": 15, "availableTickets": 200 },
       { "type": "Student",  "price": 10, "availableTickets": 100 }
     ],
-    "organizer": "60d5ec49f8d2e30f8c8b4570",
-    "tags": ["σύγχρονο", "δράμα", "παράσταση"]
+    "organizer": "Knosos Theatre Productions Eu",
+    "tags": ["modern", "contemporary", "drama", "performance"]
   },
   {
     "title": "Red Bull Showrun by ALUMIL",
-    "description": "Μια μοναδική επίδειξη ταχύτητας και δεξιοτεχνίας με τη συμμετοχή κορυφαίων οδηγών.",
+    "description": "A unique demonstration of speed and skill with the participation of top drivers.",
     "category": "sports",
-    "image": "https://cdn.pixabay.com/photo/2016/11/29/09/32/formula-1-1869181_1280.jpg",
+    "image": "https://cdn.pixabay.com/photo/2016/11/29/09/32/formula-1-1869181_1280.webp",
     "schedule": [
-      { "date": "2025-09-15", "location": "Αθήνα" }
+      { "date": "2025-09-15", "location": "Athens" }
     ],
     "ticketTypes": [
       { "type": "General Admission", "price": 20, "availableTickets": 1000 },
       { "type": "Pit Access",         "price": 50, "availableTickets": 200 }
     ],
-    "organizer": "60d5ec49f8d2e30f8c8b4571",
-    "tags": ["αυτοκίνητα", "επιδείξεις", "ταχύτητα"]
+    "organizer": "Red Bull",
+    "tags": ["cars", "demonstrations", "speed"]
   },
   {
     "title": "Athens Marathon 2025",
-    "description": "Ο κλασικός Μαραθώνιος της Αθήνας επιστρέφει με διαδρομές για όλους.",
+    "description": "The classic Athens Marathon returns with routes for everyone.",
     "category": "sports",
-    "image": "https://cdn.pixabay.com/photo/2017/09/02/21/52/marathon-2707322_1280.jpg",
+    "image": "https://cdn.pixabay.com/photo/2017/09/02/21/52/marathon-2707322_1280.webp",
     "schedule": [
-      { "date": "2025-11-10", "location": "Αθήνα" }
+      { "date": "2025-11-10", "location": "Athens" }
     ],
     "ticketTypes": [
       { "type": "Full Marathon", "price": 50, "availableTickets": 500 },
       { "type": "10K Run",       "price": 30, "availableTickets": 300 }
     ],
-    "organizer": "60d5ec49f8d2e30f8c8b4572",
-    "tags": ["τρέξιμο", "μαραθώνιος", "αθλητισμός"]
+    "organizer": "Association of Greek Gymnastics Sports Clubs",
+    "tags": ["running", "marathon", "sports"]
   },
   {
-    "title": "Φεστιβάλ Αθηνών Επιδαύρου 2025",
-    "description": "Το κορυφαίο πολιτιστικό φεστιβάλ της Ελλάδας με παραστάσεις σε Αθήνα και Επίδαυρο.",
+    "title": "Athens Epidaurus Festival 2025",
+    "description": "The leading cultural festival in Greece with performances in Athens and Epidaurus.",
     "category": "festival",
-    "image": "https://cdn.pixabay.com/photo/2017/06/04/18/24/epidaurus-2375664_1280.jpg",
+    "image": "https://cdn.pixabay.com/photo/2017/06/04/18/24/epidaurus-2375664_1280.webp",
     "schedule": [
-      { "date": "2025-06-01", "location": "Αθήνα" },
-      { "date": "2025-06-15", "location": "Επίδαυρος" }
+      { "date": "2025-06-01", "location": "Athens" },
+      { "date": "2025-06-15", "location": "Epidaurus" }
     ],
     "ticketTypes": [
       { "type": "Standard", "price": 25, "availableTickets": 500 },
       { "type": "VIP",      "price": 50, "availableTickets": 100 }
     ],
-    "organizer": "60d5ec49f8d2e30f8c8b4573",
-    "tags": ["θέατρο", "μουσική", "πολιτισμός"]
+    "organizer": "Athens Epidaurus Festival",
+    "tags": ["theatre", "music", "culture"]
   },
   {
     "title": "Rockwave Festival 2025",
-    "description": "Το Rockwave Festival επιστρέφει με κορυφαία ονόματα της rock σκηνής.",
+    "description": "Rockwave Festival returns with top names of the rock scene.",
     "category": "festival",
-    "image": "https://cdn.pixabay.com/photo/2016/11/29/05/08/theater-1866470_1280.jpg",
+    "image": "https://cdn.pixabay.com/photo/2016/11/29/05/08/theater-1866470_1280.webp",
     "schedule": [
-      { "date": "2025-07-20", "location": "Μαλακάσα" }
+      { "date": "2025-07-20", "location": "Malakasa" }
     ],
     "ticketTypes": [
       { "type": "General Admission", "price": 40, "availableTickets": 1000 },
       { "type": "VIP",               "price": 80, "availableTickets": 200 }
     ],
-    "organizer": "60d5ec49f8d2e30f8c8b4574",
-    "tags": ["rock", "μουσική", "φεστιβάλ"]
+    "organizer": "X LA LA LA PRESENTS Sole PPC",
+    "tags": ["rock", "music", "festival"]
   },
   {
     "title": "Athens Tech Conference 2025",
-    "description": "Συνέδριο τεχνολογίας με ομιλίες από κορυφαίους επαγγελματίες του χώρου.",
+    "description": "Technology conference with speeches by leading professionals in the field.",
     "category": "conference",
-    "image": "https://images.unsplash.com/photo-1551836022-d5d88e9218df",
+    "image": "https://www.nicus.com/wp-content/uploads/2025/04/technology-business-management.webp",
     "schedule": [
-      { "date": "2025-09-10", "location": "Αθήνα" }
+      { "date": "2025-09-10", "location": "Athens" }
     ],
     "ticketTypes": [
       { "type": "Standard", "price": 100, "availableTickets": 300 },
       { "type": "Student",  "price": 50,  "availableTickets": 150 }
     ],
-    "organizer": "60d5ec49f8d2e30f8c8b4575",
-    "tags": ["τεχνολογία", "συνέδριο", "καινοτομία"]
+    "organizer": "HETiA",
+    "tags": ["technology", "conference", "innovation"]
   },
   {
     "title": "Comedy Nights Athens",
-    "description": "Βραδιές stand-up comedy με τους καλύτερους Έλληνες κωμικούς.",
+    "description": "Stand-up comedy nights with the best Greek comedians.",
     "category": "comedy",
-    "image": "https://images.pexels.com/photos/33292/comedy-happy-theater-show.jpg",
+    "image": "https://images.pexels.com/photos/33292/comedy-happy-theater-show.webp",
     "schedule": [
-      { "date": "2025-08-15", "location": "Αθήνα" },
-      { "date": "2025-08-16", "location": "Αθήνα" }
+      { "date": "2025-08-15", "location": "Athens" },
+      { "date": "2025-08-16", "location": "Athens" }
     ],
     "ticketTypes": [
       { "type": "Standard", "price": 20, "availableTickets": 150 },
       { "type": "VIP",      "price": 40, "availableTickets": 50 }
     ],
-    "organizer": "60d5ec49f8d2e30f8c8b4576",
-    "tags": ["κωμωδία", "standup", "διασκέδαση"]
+    "organizer": "I.TH.A.C.A.",
+    "tags": ["comedy", "standup", "entertainment"]
   }
 ]

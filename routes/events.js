@@ -1,7 +1,7 @@
 // routes/events.js
 const express = require('express');
-const router = express.Router();
-const Event = require('../models/event');
+const router  = express.Router();
+const Event   = require('../models/event');
 
 const ALLOWED_CATEGORIES = [
   'concert','theatre','sports','festival',
@@ -9,33 +9,26 @@ const ALLOWED_CATEGORIES = [
   'exhibition','movie','other'
 ];
 
-// POST /api/events — CREATE a new event
+// POST /api/events — CREATE a new event (auto‐increment eventId)
 router.post('/', async (req, res) => {
   try {
-    // 1. Find current maximum eventId
-    //    Sort by eventId descending, limit 1 to get the highest
     const latestEvent = await Event.findOne({})
       .sort('-eventId')
       .select('eventId')
       .lean();
-
-    // 2. Compute the next eventId
-    const maxId = latestEvent ? latestEvent.eventId : 0;
+    const maxId  = latestEvent ? latestEvent.eventId : 0;
     const nextId = maxId + 1;
 
-    // 3. Merge eventId into the request body
     const newData = {
       ...req.body,
       eventId: nextId
     };
 
-    // 4. Create & save the new Event
     const event = new Event(newData);
     await event.save();
-
-    res.status(201).json(event);
+    return res.status(201).json(event);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    return res.status(400).json({ message: error.message });
   }
 });
 
@@ -81,6 +74,7 @@ router.get('/', async (req, res) => {
     if (dateFrom || dateTo || upcoming !== 'false') {
       filter.schedule = filter.schedule || {};
       filter.schedule.$elemMatch = filter.schedule.$elemMatch || {};
+
       if (upcoming !== 'false') {
         filter.schedule.$elemMatch.date = { $gte: new Date() };
       }
@@ -99,14 +93,16 @@ router.get('/', async (req, res) => {
       filter.ticketTypes = {
         $elemMatch: {}
       };
-      if (minPrice) filter.ticketTypes.$elemMatch.price = { $gte: parseFloat(minPrice) };
+      if (minPrice) {
+        filter.ticketTypes.$elemMatch.price = { $gte: parseFloat(minPrice) };
+      }
       if (maxPrice) {
         filter.ticketTypes.$elemMatch.price = filter.ticketTypes.$elemMatch.price || {};
         filter.ticketTypes.$elemMatch.price.$lte = parseFloat(maxPrice);
       }
     }
 
-    // 6. Availability: any ticketType with availableTickets>0
+    // 6. Availability: any ticketType with availableTickets > 0
     if (availableOnly === 'true') {
       filter.ticketTypes = filter.ticketTypes || { $elemMatch: {} };
       filter.ticketTypes.$elemMatch.availableTickets = { $gt: 0 };
@@ -126,26 +122,33 @@ router.get('/', async (req, res) => {
     query = query.skip(skip).limit(parseInt(limit));
 
     // Execute query + count total for metadata
-    const [events, total] = await Promise.all([
+    const [eventsRaw, total] = await Promise.all([
       query.exec(),
       Event.countDocuments(filter)
     ]);
 
-    // Respond with data + pagination info
-    res.json({
-      page:         parseInt(page),
-      totalPages:   Math.ceil(total / limit),
-      totalResults: total,
-      events
+    // Format each schedule.date to YYYY-MM-DD, leave organizer/text as is
+    const events = eventsRaw.map(evt => {
+      const e = evt.toObject();
+
+      e.schedule = e.schedule.map(s => ({
+        date: s.date.toISOString().slice(0, 10),
+        location: s.location
+      }));
+
+      return e;
     });
+
+    // Return only { events }
+    return res.json({ events });
 
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: 'Server error fetching events.' });
+    return res.status(500).json({ message: 'Server error fetching events.' });
   }
 });
 
-// GET /api/events/:id — Single event by ID
+// GET /api/events/:id — Single event by eventId
 router.get('/:id', async (req, res) => {
   try {
     const id = parseInt(req.params.id, 10);
@@ -153,19 +156,25 @@ router.get('/:id', async (req, res) => {
       return res.status(400).json({ message: 'Invalid eventId' });
     }
 
-    const event = await Event.findOne({ eventId: id }).lean();
-    if (!event) {
+    const e = await Event.findOne({ eventId: id }).lean();
+    if (!e) {
       return res.status(404).json({ message: 'Event not found' });
     }
 
-    res.json(event);
+    // Format schedule dates to YYYY-MM-DD
+    e.schedule = e.schedule.map(s => ({
+      date: s.date.toISOString().slice(0, 10),
+      location: s.location
+    }));
+
+    return res.json(e);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: err.message });
+    return res.status(500).json({ message: err.message });
   }
 });
 
-// PUT /api/events/:id — UPDATE an event
+// PUT /api/events/:id — UPDATE an event by eventId
 router.put('/:id', async (req, res) => {
   try {
     const id = parseInt(req.params.id, 10);
@@ -184,14 +193,14 @@ router.put('/:id', async (req, res) => {
       return res.status(404).json({ message: 'Event not found' });
     }
 
-    res.json(updatedEvent);
+    return res.json(updatedEvent);
   } catch (err) {
     console.error(err);
-    res.status(400).json({ message: err.message });
+    return res.status(400).json({ message: err.message });
   }
 });
 
-// DELETE /api/events/:id — Remove event
+// DELETE /api/events/:id — Remove event by eventId
 router.delete('/:id', async (req, res) => {
   try {
     const id = parseInt(req.params.id, 10);
@@ -204,14 +213,14 @@ router.delete('/:id', async (req, res) => {
       return res.status(404).json({ message: 'Event not found' });
     }
 
-    res.json({ message: 'Event deleted successfully' });
+    return res.json({ message: 'Event deleted successfully' });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: err.message });
+    return res.status(500).json({ message: err.message });
   }
 });
 
-// PATCH /api/events/:id/ticketTypes/:index — Update one ticket type
+// PATCH /api/events/:id/ticketTypes/:index — Update one ticket type by eventId
 router.patch('/:id/ticketTypes/:index', async (req, res) => {
   try {
     const id    = parseInt(req.params.id, 10);
@@ -221,31 +230,25 @@ router.patch('/:id/ticketTypes/:index', async (req, res) => {
       return res.status(400).json({ message: 'Invalid eventId or index' });
     }
 
-    // 1. Find the event by eventId
     const event = await Event.findOne({ eventId: id });
     if (!event) {
       return res.status(404).json({ message: 'Event not found' });
     }
 
-    // 2. Validate index boundaries
     if (index < 0 || index >= event.ticketTypes.length) {
       return res.status(400).json({ message: 'Invalid ticket type index' });
     }
 
-    // 3. Apply updates to the specific ticket subdocument
     Object.assign(event.ticketTypes[index], req.body);
-
-    // 4. Save the parent document
     await event.save();
-
-    res.json(event);
+    return res.json(event);
   } catch (err) {
     console.error(err);
-    res.status(400).json({ message: err.message });
+    return res.status(400).json({ message: err.message });
   }
 });
 
-// PATCH /api/events/:id/schedule/:index — Update one schedule entry
+// PATCH /api/events/:id/schedule/:index — Update one schedule entry by eventId
 router.patch('/:id/schedule/:index', async (req, res) => {
   try {
     const id    = parseInt(req.params.id, 10);
@@ -255,32 +258,25 @@ router.patch('/:id/schedule/:index', async (req, res) => {
       return res.status(400).json({ message: 'Invalid eventId or index' });
     }
 
-    // 1. Find the event by eventId
     const event = await Event.findOne({ eventId: id });
     if (!event) {
       return res.status(404).json({ message: 'Event not found' });
     }
 
-    // 2. Validate index boundaries
     if (index < 0 || index >= event.schedule.length) {
       return res.status(400).json({ message: 'Invalid schedule index' });
     }
 
-    // 3. If the client provided a date, convert it to a Date object
     if (req.body.date) {
       req.body.date = new Date(req.body.date);
     }
 
-    // 4. Apply updates to the specific schedule subdocument
     Object.assign(event.schedule[index], req.body);
-
-    // 5. Save the parent document
     await event.save();
-
-    res.json(event);
+    return res.json(event);
   } catch (err) {
     console.error(err);
-    res.status(400).json({ message: err.message });
+    return res.status(400).json({ message: err.message });
   }
 });
 

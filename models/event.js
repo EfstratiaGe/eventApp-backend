@@ -82,8 +82,9 @@ const eventSchema = new mongoose.Schema({
 
   // Organizer reference for future use
   organizer: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
+    type: String,
+    required: true,
+    trim: true
   },
 
   // User-defined tags for search and categorization

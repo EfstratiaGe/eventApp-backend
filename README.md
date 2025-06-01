@@ -59,6 +59,8 @@ Default `PORT` is **10000** if not set in `.env`.
 
 ## 🔌 API Endpoints
 
+> **Note:** All endpoints return JSON payloads.
+
 ### 1. Health Check
 
 | Method | Path         | Description              | Response Example           |
@@ -108,7 +110,7 @@ GET /api/events
       "title": "Giannis Haroulis Tour 2025",
       "description": "Giannis Haroulis presents his summer tour entitled 'Come to the Dance'.",
       "category": "concert",
-      "image": "https://cdn.pixabay.com/photo/2023/01/07/21/02/concert-7705720_640.webp",
+      "image": "/images/event1.jpg",
       "schedule": [
         { "date": "2025-06-15", "location": "Athens" },
         { "date": "2025-06-20", "location": "Thessaloniki" }
@@ -146,7 +148,7 @@ POST /api/events
   "title": "Sample Event",
   "description": "An example event created via API",
   "category": "other",
-  "image": "https://example.com/sample.jpg",
+  "image": "/images/sample.jpg",
   "schedule": [
     { "date": "2025-09-01", "location": "Volos" }
   ],
@@ -166,7 +168,7 @@ POST /api/events
   "title": "Sample Event",
   "description": "An example event created via API",
   "category": "other",
-  "image": "https://example.com/sample.webp",
+  "image": "/images/sample.webp",
   "schedule": [
     { "date": "2025-09-01", "location": "Volos" }
   ],
@@ -205,7 +207,7 @@ GET https://eventapp-backend-c8xe.onrender.com/api/events/1
   "title": "Giannis Haroulis Tour 2025",
   "description": "Giannis Haroulis presents his summer tour entitled 'Come to the Dance'.",
   "category": "concert",
-  "image": "https://cdn.pixabay.com/photo/2023/01/07/21/02/concert-7705720_640.webp",
+  "image": "/images/event1.jpg",
   "schedule": [
     { "date": "2025-06-15", "location": "Athens" },
     { "date": "2025-06-20", "location": "Thessaloniki" }
@@ -244,7 +246,7 @@ PUT https://eventapp-backend-c8xe.onrender.com/api/events/1
   "title": "Giannis Haroulis Tour 2025 - Updated",
   "description": "Updated description…",
   "category": "concert",
-  "image": "https://example.com/newimage.jpg",
+  "image": "/images/event1.jpg",
   "schedule": [
     { "date": "2025-06-15", "location": "Athens" },
     { "date": "2025-06-21", "location": "Thessaloniki" }
@@ -267,7 +269,7 @@ PUT https://eventapp-backend-c8xe.onrender.com/api/events/1
   "title": "Giannis Haroulis Tour 2025 - Updated",
   "description": "Updated description…",
   "category": "concert",
-  "image": "https://example.com/newimage.webp",
+  "image": "/images/event1.jpg",
   "schedule": [
     { "date": "2025-06-15", "location": "Athens" },
     { "date": "2025-06-21", "location": "Thessaloniki" }

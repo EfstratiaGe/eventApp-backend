@@ -12,25 +12,39 @@ const ALLOWED_CATEGORIES = [
 // POST /api/events — CREATE a new event (auto‐increment eventId)
 router.post('/', async (req, res) => {
   try {
+    // 1. Find current max eventId
     const latestEvent = await Event.findOne({})
       .sort('-eventId')
       .select('eventId')
       .lean();
+
+    // 2. Compute nextId
     const maxId  = latestEvent ? latestEvent.eventId : 0;
     const nextId = maxId + 1;
 
-    const newData = {
-      ...req.body,
-      eventId: nextId
-    };
+    // 3. Merge eventId into request body
+    const newData = { ...req.body, eventId: nextId };
 
-    const event = new Event(newData);
-    await event.save();
+    // 4. Create & save
+    const eventDoc = new Event(newData);
+    await eventDoc.save();
+
+    // 5. Convert to plain object
+    const event = eventDoc.toObject();
+
+    // 6. Re‐format every schedule.date → "YYYY-MM-DD"
+    event.schedule = event.schedule.map(s => ({
+      date: s.date.toISOString().slice(0, 10),
+      location: s.location
+    }));
+
+    // 7. Send back the formatted event
     return res.status(201).json(event);
   } catch (error) {
     return res.status(400).json({ message: error.message });
   }
 });
+
 
 // GET /api/events — List with filters, sorting & pagination
 router.get('/', async (req, res) => {
@@ -182,23 +196,30 @@ router.put('/:id', async (req, res) => {
       return res.status(400).json({ message: 'Invalid eventId' });
     }
 
-    const updates = req.body;
-    const updatedEvent = await Event.findOneAndUpdate(
+    // Perform the update and return the new document (as a plain JS object)
+    const updated = await Event.findOneAndUpdate(
       { eventId: id },
-      updates,
+      req.body,
       { new: true, runValidators: true }
     ).lean();
 
-    if (!updatedEvent) {
+    if (!updated) {
       return res.status(404).json({ message: 'Event not found' });
     }
 
-    return res.json(updatedEvent);
+    // Re‐format schedule dates before sending
+    updated.schedule = updated.schedule.map(s => ({
+      date: s.date.toISOString().slice(0, 10),
+      location: s.location
+    }));
+
+    return res.json(updated);
   } catch (err) {
     console.error(err);
     return res.status(400).json({ message: err.message });
   }
 });
+
 
 // DELETE /api/events/:id — Remove event by eventId
 router.delete('/:id', async (req, res) => {
@@ -230,23 +251,40 @@ router.patch('/:id/ticketTypes/:index', async (req, res) => {
       return res.status(400).json({ message: 'Invalid eventId or index' });
     }
 
+    // 1. Find the event by eventId
     const event = await Event.findOne({ eventId: id });
     if (!event) {
       return res.status(404).json({ message: 'Event not found' });
     }
 
+    // 2. Validate ticketTypes index
     if (index < 0 || index >= event.ticketTypes.length) {
       return res.status(400).json({ message: 'Invalid ticket type index' });
     }
 
+    // 3. Apply updates to that ticketTypes subdocument
     Object.assign(event.ticketTypes[index], req.body);
+
+    // 4. Save the parent document
     await event.save();
-    return res.json(event);
+
+    // 5. Convert to plain JS object for formatting
+    const e = event.toObject();
+
+    // 6. Re‐format schedule dates
+    e.schedule = e.schedule.map(s => ({
+      date: s.date.toISOString().slice(0, 10),
+      location: s.location
+    }));
+
+    // 7. Return the full event with formatted dates
+    return res.json(e);
   } catch (err) {
     console.error(err);
     return res.status(400).json({ message: err.message });
   }
 });
+
 
 // PATCH /api/events/:id/schedule/:index — Update one schedule entry by eventId
 router.patch('/:id/schedule/:index', async (req, res) => {
@@ -258,26 +296,44 @@ router.patch('/:id/schedule/:index', async (req, res) => {
       return res.status(400).json({ message: 'Invalid eventId or index' });
     }
 
+    // 1. Find the event by eventId
     const event = await Event.findOne({ eventId: id });
     if (!event) {
       return res.status(404).json({ message: 'Event not found' });
     }
 
+    // 2. Validate schedule index
     if (index < 0 || index >= event.schedule.length) {
       return res.status(400).json({ message: 'Invalid schedule index' });
     }
 
+    // 3. If a new date is provided, convert it to a Date object
     if (req.body.date) {
       req.body.date = new Date(req.body.date);
     }
 
+    // 4. Apply updates to the specific schedule subdocument
     Object.assign(event.schedule[index], req.body);
+
+    // 5. Save the parent document
     await event.save();
-    return res.json(event);
+
+    // 6. Convert to plain JS object
+    const e = event.toObject();
+
+    // 7. Re‐format every schedule.date to "YYYY-MM-DD"
+    e.schedule = e.schedule.map(s => ({
+      date: s.date.toISOString().slice(0, 10),
+      location: s.location
+    }));
+
+    // 8. Return the full event with formatted dates
+    return res.json(e);
   } catch (err) {
     console.error(err);
     return res.status(400).json({ message: err.message });
   }
 });
+
 
 module.exports = router;

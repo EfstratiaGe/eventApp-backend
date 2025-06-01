@@ -154,7 +154,7 @@ router.get('/', async (req, res) => {
     });
 
     // Return only { events }
-    return res.json({ events });
+    return res.send({ events });
 
   } catch (err) {
     console.error(err);

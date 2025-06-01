@@ -3,7 +3,7 @@
     "title": "Giannis Haroulis Tour 2025",
     "description": "Giannis Haroulis presents his summer tour entitled 'Come to the Dance'.",
     "category": "concert",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/b/b5/%CE%A7%CE%B1%CF%81%CE%BF%CF%8D%CE%BB%CE%B7%CF%82_live_2011.webp",
+    "image": "/images/event1.jpg",
     "schedule": [
       { "date": "2025-06-15", "location": "Athens" },
       { "date": "2025-06-20", "location": "Thessaloniki" }
@@ -19,7 +19,7 @@
     "title": "La Femme Live in Athens",
     "description": "The French band La Femme returns to Athens for a unique concert.",
     "category": "concert",
-    "image": "https://images.pexels.com/photos/167636/pexels-photo-167636.webp",
+    "image": "/images/event2.jpeg",
     "schedule": [
       { "date": "2025-07-10", "location": "Athens" }
     ],
@@ -34,7 +34,7 @@
     "title": "Sophocles' Antigone",
     "description": "Sophocles' classic tragedy is presented at the Ancient Theatre of Epidaurus.",
     "category": "theatre",
-    "image": "https://cdn.pixabay.com/photo/2017/06/04/18/24/epidaurus-2375664_1280.webp",
+    "image": "/images/event3.jpg",
     "schedule": [
       { "date": "2025-07-05", "location": "Epidaurus" },
       { "date": "2025-07-06", "location": "Epidaurus" }
@@ -50,7 +50,7 @@
     "title": "Another Thebes",
     "description": "A contemporary theatrical performance that explores human relationships.",
     "category": "theatre",
-    "image": "https://cdn.pixabay.com/photo/2016/11/29/05/08/theater-1866470_1280.webp",
+    "image": "/images/event4.webp",
     "schedule": [
       { "date": "2025-08-10", "location": "Athens" }
     ],
@@ -65,7 +65,7 @@
     "title": "Red Bull Showrun by ALUMIL",
     "description": "A unique demonstration of speed and skill with the participation of top drivers.",
     "category": "sports",
-    "image": "https://cdn.pixabay.com/photo/2016/11/29/09/32/formula-1-1869181_1280.webp",
+    "image": "/images/event5.jpg",
     "schedule": [
       { "date": "2025-09-15", "location": "Athens" }
     ],
@@ -80,7 +80,7 @@
     "title": "Athens Marathon 2025",
     "description": "The classic Athens Marathon returns with routes for everyone.",
     "category": "sports",
-    "image": "https://cdn.pixabay.com/photo/2017/09/02/21/52/marathon-2707322_1280.webp",
+    "image": "/images/event6.jpg",
     "schedule": [
       { "date": "2025-11-10", "location": "Athens" }
     ],
@@ -95,7 +95,7 @@
     "title": "Athens Epidaurus Festival 2025",
     "description": "The leading cultural festival in Greece with performances in Athens and Epidaurus.",
     "category": "festival",
-    "image": "https://cdn.pixabay.com/photo/2017/06/04/18/24/epidaurus-2375664_1280.webp",
+    "image": "/images/event7.jpg",
     "schedule": [
       { "date": "2025-06-01", "location": "Athens" },
       { "date": "2025-06-15", "location": "Epidaurus" }
@@ -111,7 +111,7 @@
     "title": "Rockwave Festival 2025",
     "description": "Rockwave Festival returns with top names of the rock scene.",
     "category": "festival",
-    "image": "https://cdn.pixabay.com/photo/2016/11/29/05/08/theater-1866470_1280.webp",
+    "image": "/images/event8.jpg",
     "schedule": [
       { "date": "2025-07-20", "location": "Malakasa" }
     ],
@@ -126,7 +126,7 @@
     "title": "Athens Tech Conference 2025",
     "description": "Technology conference with speeches by leading professionals in the field.",
     "category": "conference",
-    "image": "https://www.nicus.com/wp-content/uploads/2025/04/technology-business-management.webp",
+    "image": "/images/event9.webp",
     "schedule": [
       { "date": "2025-09-10", "location": "Athens" }
     ],
@@ -141,7 +141,7 @@
     "title": "Comedy Nights Athens",
     "description": "Stand-up comedy nights with the best Greek comedians.",
     "category": "comedy",
-    "image": "https://images.pexels.com/photos/33292/comedy-happy-theater-show.webp",
+    "image": "/images/event10.jpg",
     "schedule": [
       { "date": "2025-08-15", "location": "Athens" },
       { "date": "2025-08-16", "location": "Athens" }

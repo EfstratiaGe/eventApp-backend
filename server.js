@@ -17,7 +17,7 @@ app.use(express.json());   // Parse JSON bodies
 
 // --- Health Check or Root Route ---
 app.get('/healthz', (req, res) => {
-  res.send('Hello Eve / Socialive');
+  res.send('Hello Tickest');
 });
 
 // --- Event Routes ---

@@ -80,6 +80,12 @@ const eventSchema = new mongoose.Schema({
     validate: v => v.length > 0           //returns true if there’s at least one element in the v array value
   },
 
+  // Favorite option for each event
+  favorited: {
+  type: Boolean,
+  default: false
+  },
+
   // Organizer reference for future use
   organizer: {
     type: String,

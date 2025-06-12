@@ -131,8 +131,8 @@ router.get('/', async (req, res) => {
     }
 
     // Pagination
-    const skip = (Number(page) || 1 - 1) * (Number(limit) || 20);                   //Changed parseInt to Number
-    query = query.skip(skip).limit(Number(limit) || 20);
+    const skip = (page - 1) * (limit);                   //Changed parseInt to Number
+    query = query.skip(skip).limit(parseInt(limit));
 
     // Execute query + count total for metadata
     const [eventsRaw, total] = await Promise.all([

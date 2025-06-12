@@ -63,9 +63,9 @@ Default `PORT` is **10000** if not set in `.env`.
 
 ### 1. Health Check
 
-| Method | Path         | Description              | Response Example           |
-| ------ | ------------ | ------------------------ | -------------------------- |
-| GET    | `/healthz`   | Verify server is running | `"Hello Eve / Socialive"`  |
+| Method | Path         | Description              | Response Example   |
+| ------ | ------------ | ------------------------ | ------------------ |
+| GET    | `/healthz`   | Verify server is running | `"Hello Tickest"`  |
 
 ---
 
@@ -119,6 +119,7 @@ GET /api/events
         { "type": "General Admission", "price": 25, "availableTickets": 500 },
         { "type": "VIP", "price": 50, "availableTickets": 100 }
       ],
+      "favorited": false,
       "organizer": "223 Events ΙΚΕ",
       "tags": ["popular", "traditional", "live"],
       "createdAt": "2025-05-20T12:00:00.000Z",
@@ -155,6 +156,8 @@ POST /api/events
   "ticketTypes": [
     { "type": "General", "price": 20, "availableTickets": 100 }
   ],
+  "favorited": false,
+  "organizer": "Some Organizer Name",
   "tags": ["test", "api"]
 }
 ```
@@ -175,6 +178,7 @@ POST /api/events
   "ticketTypes": [
     { "type": "General", "price": 20, "availableTickets": 100 }
   ],
+  "favorited": false,
   "organizer": "Some Organizer Name",
   "tags": ["test", "api"],
   "createdAt": "2025-05-31T11:00:00.000Z",
@@ -216,6 +220,7 @@ GET https://eventapp-backend-c8xe.onrender.com/api/events/1
     { "type": "General Admission", "price": 25, "availableTickets": 500 },
     { "type": "VIP", "price": 50, "availableTickets": 100 }
   ],
+  "favorited": false,
   "organizer": "223 Events ΙΚΕ",
   "tags": ["popular", "traditional", "live"],
   "createdAt": "2025-05-20T12:00:00.000Z",
@@ -255,6 +260,7 @@ PUT https://eventapp-backend-c8xe.onrender.com/api/events/1
     { "type": "General Admission", "price": 30, "availableTickets": 400 },
     { "type": "VIP", "price": 60, "availableTickets": 50 }
   ],
+  "favorited": false,
   "organizer": "223 Events ΙΚΕ",
   "tags": ["updated", "concert"]
 }
@@ -278,6 +284,7 @@ PUT https://eventapp-backend-c8xe.onrender.com/api/events/1
     { "type": "General Admission", "price": 30, "availableTickets": 400 },
     { "type": "VIP", "price": 60, "availableTickets": 50 }
   ],
+  "favorited": false,
   "organizer": "223 Events ΙΚΕ",
   "tags": ["updated", "concert"],
   "createdAt": "2025-05-20T12:00:00.000Z",
@@ -346,6 +353,7 @@ This only updates `ticketTypes[0].price` to `35`.
     { "type": "General Admission", "price": 35, "availableTickets": 400 },
     { "type": "VIP", "price": 60, "availableTickets": 50 }
   ],
+  "favorited": false,
   "organizer": "223 Events ΙΚΕ",
   "tags": ["popular", "traditional", "live"],
   "createdAt": "2025-05-20T12:00:00.000Z",
@@ -392,6 +400,52 @@ This only updates `schedule[1].location` to `"Volos"`.
     { "type": "General Admission", "price": 25, "availableTickets": 500 },
     { "type": "VIP", "price": 50, "availableTickets": 100 }
   ],
+  "favorited": false,
+  "organizer": "223 Events ΙΚΕ",
+  "tags": ["popular", "traditional", "live"],
+  "createdAt": "2025-05-20T12:00:00.000Z",
+  "updatedAt": "2025-05-31T12:30:00.000Z",
+  "__v": 0
+}
+```
+
+---
+
+#### 3.c. Toggle Favorited Flag
+
+```
+PATCH /api/events/:eventId/favorite
+```
+
+- `:eventId` — Numeric `eventId` of the event.  
+- This allows frontend to `favorite` or `unfavorite` an event (toggle heart icon).  
+- No authentication is required (currently not tied to users).
+
+**Example URL**:
+```
+PATCH https://eventapp-backend-c8xe.onrender.com/api/events/1/favorite
+```
+
+**Request Body** _(application/json)_:
+```json
+{ "favorited": true }
+```
+
+**Success Response** _(200 OK)_:
+```json
+{
+  "_id": "64a9e2c1f9b2f63320fa1e7d",
+  "eventId": 1,
+  "title": "Giannis Haroulis Tour 2025",
+  "schedule": [
+    { "date": "2025-06-15", "location": "Athens" },
+    { "date": "2025-06-20", "location": "Volos" }
+  ],
+  "ticketTypes": [
+    { "type": "General Admission", "price": 25, "availableTickets": 500 },
+    { "type": "VIP", "price": 50, "availableTickets": 100 }
+  ],
+  "favorited": true,
   "organizer": "223 Events ΙΚΕ",
   "tags": ["popular", "traditional", "live"],
   "createdAt": "2025-05-20T12:00:00.000Z",
@@ -486,6 +540,10 @@ const eventSchema = new mongoose.Schema({
     ],
     required: true,
     validate: (v) => v.length > 0
+  },
+  favorited: {
+    type: Boolean,
+    default: false
   },
   tags: {
     type: [String],

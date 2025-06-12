@@ -131,8 +131,8 @@ router.get('/', async (req, res) => {
     }
 
     // Pagination
-    const skip = (Number(page) - 1) * Number(limit);                   //Changed parseInt to Number
-    query = query.skip(skip).limit(Number(limit));
+    const skip = (page - 1) * (limit);                   //Changed parseInt to Number
+    query = query.skip(skip).limit(parseInt(limit));
 
     // Execute query + count total for metadata
     const [eventsRaw, total] = await Promise.all([
@@ -169,7 +169,7 @@ router.get('/', async (req, res) => {
 // GET /api/events/:id — Single event by eventId
 router.get('/:id', async (req, res) => {
   try {
-    const id = Number(req.params.id, 10);                                 //Changed parseInt to Number
+    const id = parseInt(req.params.id, 10);                                 //Changed parseInt to Number
     if (isNaN(id)) {
       return res.status(400).json({ message: 'Invalid eventId' });
     }
@@ -195,7 +195,7 @@ router.get('/:id', async (req, res) => {
 // PUT /api/events/:id — UPDATE an event by eventId
 router.put('/:id', async (req, res) => {
   try {
-    const id = Number(req.params.id, 10);                                   //Changed parseInt to Number
+    const id = parseInt(req.params.id, 10);                                   //Changed parseInt to Number
     if (isNaN(id)) {
       return res.status(400).json({ message: 'Invalid eventId' });
     }
@@ -227,7 +227,7 @@ router.put('/:id', async (req, res) => {
 // DELETE /api/events/:id — Remove event by eventId
 router.delete('/:id', async (req, res) => {
   try {
-    const id = Number(req.params.id, 10);                                 //Changed parseInt to Number
+    const id = parseInt(req.params.id, 10);                                 //Changed parseInt to Number
     if (isNaN(id)) {
       return res.status(400).json({ message: 'Invalid eventId' });
     }
@@ -247,8 +247,8 @@ router.delete('/:id', async (req, res) => {
 // PATCH /api/events/:id/ticketTypes/:index — Update one ticket type by eventId
 router.patch('/:id/ticketTypes/:index', async (req, res) => {
   try {
-    const id    = Number(req.params.id, 10);                              //Changed parseInt to Number
-    const index = Number(req.params.index, 10);                           //Changed parseInt to Number
+    const id    = parseInt(req.params.id, 10);                              //Changed parseInt to Number
+    const index = parseInt(req.params.index, 10);                           //Changed parseInt to Number
 
     if (isNaN(id) || isNaN(index)) {
       return res.status(400).json({ message: 'Invalid eventId or index' });
@@ -291,8 +291,8 @@ router.patch('/:id/ticketTypes/:index', async (req, res) => {
 // PATCH /api/events/:id/schedule/:index — Update one schedule entry by eventId
 router.patch('/:id/schedule/:index', async (req, res) => {
   try {
-    const id    = Number(req.params.id, 10);                              //Changed parseInt to Number
-    const index = Number(req.params.index, 10);                           //Changed parseInt to Number
+    const id    = parseInt(req.params.id, 10);                              //Changed parseInt to Number
+    const index = parseInt(req.params.index, 10);                           //Changed parseInt to Number
 
     if (isNaN(id) || isNaN(index)) {
       return res.status(400).json({ message: 'Invalid eventId or index' });
@@ -340,7 +340,7 @@ router.patch('/:id/schedule/:index', async (req, res) => {
 // PATCH /api/events/:id/favorite — Toggle favorited flag
 router.patch('/:id/favorite', async (req, res) => {
   try {
-    const id = Number(req.params.id, 10);                                 //Changed parseInt to Number
+    const id = parseInt(req.params.id, 10);                                 //Changed parseInt to Number
     const { favorited } = req.body;
 
     if (typeof favorited !== 'boolean') {

@@ -153,9 +153,9 @@ router.get('/', async (req, res) => {
     });
 
     //Delay with setTimeout for loading spinner
-    if (process.env.NODE_ENV !== 'production') {
+    /*if (process.env.NODE_ENV !== 'production') {
       await new Promise((r) => setTimeout(r, 800)); // Delay 800ms
-    }
+    }*/
 
     // Return only (events)
     console.log("Returning events...");

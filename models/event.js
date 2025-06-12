@@ -103,9 +103,5 @@ const eventSchema = new mongoose.Schema({
 // Text index on title, description, and tags for optimized search
 eventSchema.index({ title: 'text', description: 'text', tags: 'text' });
 
-// Indexes for performance on filtering/sorting
-eventSchema.index({ 'schedule.date': 1 });
-eventSchema.index({ 'ticketTypes.price': 1 });
-
 const Event = mongoose.model('Event', eventSchema);
 module.exports = Event;

@@ -122,7 +122,7 @@ router.get('/', async (req, res) => {
     }
 
     // Build the Mongoose query
-    let query = Event.find(filter).lean();                              //Added .lean() for faster read queries
+    let query = Event.find(filter)
 
     // Sorting
     if (sortBy) {
@@ -131,7 +131,7 @@ router.get('/', async (req, res) => {
     }
 
     // Pagination
-    const skip = (page - 1) * (limit);                   //Changed parseInt to Number
+    const skip = (page - 1) * (limit);
     query = query.skip(skip).limit(parseInt(limit));
 
     // Execute query + count total for metadata
@@ -152,11 +152,6 @@ router.get('/', async (req, res) => {
       return e;
     });
 
-    //Delay with setTimeout for loading spinner
-    /*if (process.env.NODE_ENV !== 'production') {
-      await new Promise((r) => setTimeout(r, 800)); // Delay 800ms
-    }*/
-
     // Return only (events)
     res.send(events);
 
@@ -169,7 +164,7 @@ router.get('/', async (req, res) => {
 // GET /api/events/:id — Single event by eventId
 router.get('/:id', async (req, res) => {
   try {
-    const id = parseInt(req.params.id, 10);                                 //Changed parseInt to Number
+    const id = parseInt(req.params.id, 10);
     if (isNaN(id)) {
       return res.status(400).json({ message: 'Invalid eventId' });
     }
@@ -195,7 +190,7 @@ router.get('/:id', async (req, res) => {
 // PUT /api/events/:id — UPDATE an event by eventId
 router.put('/:id', async (req, res) => {
   try {
-    const id = parseInt(req.params.id, 10);                                   //Changed parseInt to Number
+    const id = parseInt(req.params.id, 10);
     if (isNaN(id)) {
       return res.status(400).json({ message: 'Invalid eventId' });
     }
@@ -227,7 +222,7 @@ router.put('/:id', async (req, res) => {
 // DELETE /api/events/:id — Remove event by eventId
 router.delete('/:id', async (req, res) => {
   try {
-    const id = parseInt(req.params.id, 10);                                 //Changed parseInt to Number
+    const id = parseInt(req.params.id, 10);
     if (isNaN(id)) {
       return res.status(400).json({ message: 'Invalid eventId' });
     }
@@ -247,8 +242,8 @@ router.delete('/:id', async (req, res) => {
 // PATCH /api/events/:id/ticketTypes/:index — Update one ticket type by eventId
 router.patch('/:id/ticketTypes/:index', async (req, res) => {
   try {
-    const id    = parseInt(req.params.id, 10);                              //Changed parseInt to Number
-    const index = parseInt(req.params.index, 10);                           //Changed parseInt to Number
+    const id    = parseInt(req.params.id, 10);
+    const index = parseInt(req.params.index, 10);
 
     if (isNaN(id) || isNaN(index)) {
       return res.status(400).json({ message: 'Invalid eventId or index' });
@@ -291,8 +286,8 @@ router.patch('/:id/ticketTypes/:index', async (req, res) => {
 // PATCH /api/events/:id/schedule/:index — Update one schedule entry by eventId
 router.patch('/:id/schedule/:index', async (req, res) => {
   try {
-    const id    = parseInt(req.params.id, 10);                              //Changed parseInt to Number
-    const index = parseInt(req.params.index, 10);                           //Changed parseInt to Number
+    const id    = parseInt(req.params.id, 10);
+    const index = parseInt(req.params.index, 10);
 
     if (isNaN(id) || isNaN(index)) {
       return res.status(400).json({ message: 'Invalid eventId or index' });
@@ -340,7 +335,7 @@ router.patch('/:id/schedule/:index', async (req, res) => {
 // PATCH /api/events/:id/favorite — Toggle favorited flag
 router.patch('/:id/favorite', async (req, res) => {
   try {
-    const id = parseInt(req.params.id, 10);                                 //Changed parseInt to Number
+    const id = parseInt(req.params.id, 10);
     const { favorited } = req.body;
 
     if (typeof favorited !== 'boolean') {

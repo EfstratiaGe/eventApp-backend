@@ -131,8 +131,8 @@ router.get('/', async (req, res) => {
     }
 
     // Pagination
-    const skip = (page - 1) * (limit);                   //Changed parseInt to Number
-    query = query.skip(skip).limit(parseInt(limit));
+    const skip = (Number(page) || 1 - 1) * (Number(limit) || 20);                   //Changed parseInt to Number
+    query = query.skip(skip).limit(Number(limit) || 20);
 
     // Execute query + count total for metadata
     const [eventsRaw, total] = await Promise.all([
@@ -158,10 +158,11 @@ router.get('/', async (req, res) => {
     }
 
     // Return only (events)
+    console.log("Returning events...");
     res.send(events);
 
   } catch (err) {
-    console.error(err);
+    console.error("GET /api/events failed:", err.message);
     return res.status(500).json({ message: 'Server error fetching events.' });
   }
 });

@@ -5,8 +5,8 @@
     "category": "concert",
     "image": "https://eventapp-backend-c8xe.onrender.com/images/event1.jpg",
     "schedule": [
-      { "date": "2025-06-15", "location": "Athens"},
-      { "date": "2025-06-20", "location": "Thessaloniki" }
+      { "date": "2025-06-15", "location": "Athens", "lat": 37.9838, "lng": 23.7275},
+      { "date": "2025-06-20", "location": "Thessaloniki", "lat": 37.9838, "lng": 23.7275 }
     ],
     "ticketTypes": [
       { "type": "General Admission", "price": 25, "availableTickets": 500 },
@@ -21,7 +21,7 @@
     "category": "concert",
     "image": "https://eventapp-backend-c8xe.onrender.com/images/event2.jpeg",
     "schedule": [
-      { "date": "2025-07-10", "location": "Athens" }
+      { "date": "2025-07-10", "location": "Athens", "lat": 37.9838, "lng": 23.7275 }
     ],
     "ticketTypes": [
       { "type": "General Admission", "price": 30, "availableTickets": 300 },
@@ -36,8 +36,8 @@
     "category": "theater",
     "image": "https://eventapp-backend-c8xe.onrender.com/images/event3.jpg",
     "schedule": [
-      { "date": "2025-07-05", "location": "Epidaurus"},
-      { "date": "2025-07-06", "location": "Epidaurus" }
+      { "date": "2025-07-05", "location": "Epidaurus", "lat": 37.9838, "lng": 23.7275},
+      { "date": "2025-07-06", "location": "Epidaurus", "lat": 37.9838, "lng": 23.7275 }
     ],
     "ticketTypes": [
       { "type": "Standard", "price": 20, "availableTickets": 400 },
@@ -67,7 +67,7 @@
     "category": "sports",
     "image": "https://eventapp-backend-c8xe.onrender.com/images/event5.jpg",
     "schedule": [
-      { "date": "2025-09-15", "location": "Athens" }
+      { "date": "2025-09-15", "location": "Athens", "lat": 37.9838, "lng": 23.7275 }
     ],
     "ticketTypes": [
       { "type": "General Admission", "price": 20, "availableTickets": 1000 },
@@ -82,7 +82,7 @@
     "category": "sports",
     "image": "https://eventapp-backend-c8xe.onrender.com/images/event6.jpg",
     "schedule": [
-      { "date": "2025-11-10", "location": "Athens"}
+      { "date": "2025-11-10", "location": "Athens", "lat": 37.9838, "lng": 23.7275}
     ],
     "ticketTypes": [
       { "type": "Full Marathon", "price": 50, "availableTickets": 500 },
@@ -97,8 +97,8 @@
     "category": "festival",
     "image": "https://eventapp-backend-c8xe.onrender.com/images/event7.jpg",
     "schedule": [
-      { "date": "2025-06-01", "location": "Athens" },
-      { "date": "2025-06-15", "location": "Epidaurus" }
+      { "date": "2025-06-01", "location": "Athens", "lat": 37.9838, "lng": 23.7275 },
+      { "date": "2025-06-15", "location": "Epidaurus", "lat": 37.9838, "lng": 23.7275 }
     ],
     "ticketTypes": [
       { "type": "Standard", "price": 25, "availableTickets": 500 },
@@ -113,7 +113,7 @@
     "category": "festival",
     "image": "https://eventapp-backend-c8xe.onrender.com/images/event8.jpg",
     "schedule": [
-      { "date": "2025-07-20", "location": "Malakasa" }
+      { "date": "2025-07-20", "location": "Malakasa", "lat": 37.9838, "lng": 23.7275 }
     ],
     "ticketTypes": [
       { "type": "General Admission", "price": 40, "availableTickets": 1000 },
@@ -128,7 +128,7 @@
     "category": "conference",
     "image": "https://eventapp-backend-c8xe.onrender.com/images/event9.webp",
     "schedule": [
-      { "date": "2025-09-10", "location": "Athens"}
+      { "date": "2025-09-10", "location": "Athens", "lat": 37.9838, "lng": 23.7275}
     ],
     "ticketTypes": [
       { "type": "Standard", "price": 100, "availableTickets": 300 },
@@ -143,8 +143,8 @@
     "category": "comedy",
     "image": "https://eventapp-backend-c8xe.onrender.com/images/event10.jpg",
     "schedule": [
-      { "date": "2025-08-15", "location": "Athens" },
-      { "date": "2025-08-16", "location": "Athens" }
+      { "date": "2025-08-15", "location": "Athens", "lat": 37.9838, "lng": 23.7275 },
+      { "date": "2025-08-16", "location": "Athens", "lat": 37.9838, "lng": 23.7275 }
     ],
     "ticketTypes": [
       { "type": "Standard", "price": 20, "availableTickets": 150 },

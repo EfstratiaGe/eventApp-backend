@@ -12,7 +12,6 @@
       { "type": "General Admission", "price": 25, "availableTickets": 500 },
       { "type": "VIP",               "price": 50, "availableTickets": 100 }
     ],
-    "favorited": false,
     "organizer": "223 Events ΙΚΕ",
     "tags": ["popular", "traditional", "live"]
   },
@@ -28,7 +27,6 @@
       { "type": "General Admission", "price": 30, "availableTickets": 300 },
       { "type": "VIP",               "price": 60, "availableTickets": 50 }
     ],
-    "favorited": false,
     "organizer": "French Institute of Greece",
     "tags": ["rock", "indie", "live"]
   },
@@ -45,7 +43,6 @@
       { "type": "Standard", "price": 20, "availableTickets": 400 },
       { "type": "Premium",  "price": 35, "availableTickets": 100 }
     ],
-    "favorited": false,
     "organizer": "Athens Epidaurus Festival",
     "tags": ["ancient drama", "tragedy", "Sophocles"]
   },
@@ -61,7 +58,6 @@
       { "type": "Standard", "price": 15, "availableTickets": 200 },
       { "type": "Student",  "price": 10, "availableTickets": 100 }
     ],
-    "favorited": false,
     "organizer": "Knosos Theatre Productions Eu",
     "tags": ["modern", "contemporary", "drama", "performance"]
   },
@@ -77,7 +73,6 @@
       { "type": "General Admission", "price": 20, "availableTickets": 1000 },
       { "type": "Pit Access",         "price": 50, "availableTickets": 200 }
     ],
-    "favorited": false,
     "organizer": "Red Bull",
     "tags": ["cars", "demonstrations", "speed"]
   },
@@ -93,7 +88,6 @@
       { "type": "Full Marathon", "price": 50, "availableTickets": 500 },
       { "type": "10K Run",       "price": 30, "availableTickets": 300 }
     ],
-    "favorited": false,
     "organizer": "Association of Greek Gymnastics Sports Clubs",
     "tags": ["running", "marathon", "sports"]
   },
@@ -110,7 +104,6 @@
       { "type": "Standard", "price": 25, "availableTickets": 500 },
       { "type": "VIP",      "price": 50, "availableTickets": 100 }
     ],
-    "favorited": false,
     "organizer": "Athens Epidaurus Festival",
     "tags": ["theatre", "music", "culture"]
   },
@@ -126,7 +119,6 @@
       { "type": "General Admission", "price": 40, "availableTickets": 1000 },
       { "type": "VIP",               "price": 80, "availableTickets": 200 }
     ],
-    "favorited": false,
     "organizer": "X LA LA LA PRESENTS Sole PPC",
     "tags": ["rock", "music", "festival"]
   },
@@ -142,7 +134,6 @@
       { "type": "Standard", "price": 100, "availableTickets": 300 },
       { "type": "Student",  "price": 50,  "availableTickets": 150 }
     ],
-    "favorited": false,
     "organizer": "HETiA",
     "tags": ["technology", "conference", "innovation"]
   },
@@ -159,7 +150,6 @@
       { "type": "Standard", "price": 20, "availableTickets": 150 },
       { "type": "VIP",      "price": 40, "availableTickets": 50 }
     ],
-    "favorited": false,
     "organizer": "I.TH.A.C.A.",
     "tags": ["comedy", "standup", "entertainment"]
   }

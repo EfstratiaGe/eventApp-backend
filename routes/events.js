@@ -2,6 +2,9 @@
 const express = require('express');
 const router  = express.Router();
 const Event   = require('../models/event');
+const Favorite = require('../models/favorite');
+const DUMMY_USER_ID = 'guest123';
+
 
 const ALLOWED_CATEGORIES = [
   'concert','theatre','sports','festival',
@@ -135,12 +138,16 @@ router.get('/', async (req, res) => {
     query = query.skip(skip).limit(parseInt(limit));
 
     // Execute query + count total for metadata
-    const [eventsRaw, total] = await Promise.all([
+    const [eventsRaw, total, favoritesRaw] = await Promise.all([
       query.exec(),
-      Event.countDocuments(filter)
+      Event.countDocuments(filter),
+      Favorite.find({ userId: DUMMY_USER_ID }).select('eventId -_id')
     ]);
 
-    // Format each schedule.date to YYYY-MM-DD, leave organizer/text as is
+    // Favorites feature
+    const favoriteIds = favoritesRaw.map(f => f.eventId);
+
+    // Format each schedule.date to YYYY-MM-DD, leave organizer/text as is, show favorites
     const events = eventsRaw.map(evt => {
       const e = evt.toObject();
 
@@ -148,6 +155,7 @@ router.get('/', async (req, res) => {
         date: s.date.toISOString().slice(0, 10),
         location: s.location
       }));
+      e.favorited = favoriteIds.includes(e.eventId);
 
       return e;
     });
@@ -174,11 +182,16 @@ router.get('/:id', async (req, res) => {
       return res.status(404).json({ message: 'Event not found' });
     }
 
+    // Favorites featute
+    const isFavorited = await Favorite.exists({ userId: DUMMY_USER_ID, eventId: id });
+
     // Format schedule dates to YYYY-MM-DD
     e.schedule = e.schedule.map(s => ({
       date: s.date.toISOString().slice(0, 10),
       location: s.location
     }));
+
+    e.favorited = !!isFavorited;
 
     return res.json(e);
   } catch (err) {

@@ -6,6 +6,7 @@ const express  = require('express');
 const mongoose = require('mongoose');
 const cors     = require('cors');     // CORS middleware
 const eventRoutes = require('./routes/events');
+const recomsRoutes = require('./routes/recoms');
 const path = require('path');
 
 const app       = express();
@@ -24,6 +25,7 @@ app.get('/healthz', (req, res) => {
 
 // --- Event Routes ---
 app.use('/api/events', eventRoutes);
+app.use('/api/recoms', recomsRoutes);
 
 // --- Images Route ---
 app.use('/images', express.static(path.join(__dirname, 'images')));

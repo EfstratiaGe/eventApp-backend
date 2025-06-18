@@ -50,10 +50,10 @@ This repo is created for the purpose of the SKG.Code Bootcamp to develop and sto
 ## 🌐 Base URL
 
 ```
-http://localhost:<PORT>/
+https://eventapp-backend-c8xe.onrender.com/api/
 ```
 
-Default `PORT` is **10000** if not set in `.env`.
+Default `PORT` for the local Base URL is **10000** if not set in `.env`.
 
 ---
 
@@ -75,6 +75,9 @@ Default `PORT` is **10000** if not set in `.env`.
 > - **`_id`** is for internal MongoDB use.  
 > - **`eventId`** is an integer that starts at 1 and increments by 1 for each new event.  
 > - When you **CREATE** a new event via `POST`, you do **not** supply `eventId`—it’s assigned automatically.
+
+> **Note:** Every event document has `favorited` (Boolean) and it is set by default to false. 
+> - When you **CREATE** a new event via `POST`, you do **not** supply `favorited`—it’s assigned automatically.
 
 #### 2.a. List Events
 
@@ -112,8 +115,8 @@ GET /api/events
       "category": "concert",
       "image": "https://eventapp-backend-c8xe.onrender.com/images/event1.jpg",
       "schedule": [
-        { "date": "2025-06-15", "location": "Athens" },
-        { "date": "2025-06-20", "location": "Thessaloniki" }
+        { "date": "2025-06-15", "location": "Athens", "lat": 37.9838, "lng": 23.7275 },
+        { "date": "2025-06-20", "location": "Thessaloniki", "lat": 37.9838, "lng": 23.7275 }
       ],
       "ticketTypes": [
         { "type": "General Admission", "price": 25, "availableTickets": 500 },
@@ -151,12 +154,11 @@ POST /api/events
   "category": "other",
   "image": "https://eventapp-backend-c8xe.onrender.com/images/sample.jpg",
   "schedule": [
-    { "date": "2025-09-01", "location": "Volos" }
+    { "date": "2025-09-01", "location": "Volos", "lat": 37.9838, "lng": 23.7275 }
   ],
   "ticketTypes": [
     { "type": "General", "price": 20, "availableTickets": 100 }
   ],
-  "favorited": false,
   "organizer": "Some Organizer Name",
   "tags": ["test", "api"]
 }
@@ -173,7 +175,7 @@ POST /api/events
   "category": "other",
   "image": "https://eventapp-backend-c8xe.onrender.com/images/sample.webp",
   "schedule": [
-    { "date": "2025-09-01", "location": "Volos" }
+    { "date": "2025-09-01", "location": "Volos", "lat": 37.9838, "lng": 23.7275 }
   ],
   "ticketTypes": [
     { "type": "General", "price": 20, "availableTickets": 100 }
@@ -213,8 +215,8 @@ GET https://eventapp-backend-c8xe.onrender.com/api/events/1
   "category": "concert",
   "image": "https://eventapp-backend-c8xe.onrender.com/images/event1.jpg",
   "schedule": [
-    { "date": "2025-06-15", "location": "Athens" },
-    { "date": "2025-06-20", "location": "Thessaloniki" }
+    { "date": "2025-06-15", "location": "Athens", "lat": 37.9838, "lng": 23.7275 },
+    { "date": "2025-06-20", "location": "Thessaloniki", "lat": 37.9838, "lng": 23.7275 }
   ],
   "ticketTypes": [
     { "type": "General Admission", "price": 25, "availableTickets": 500 },
@@ -253,14 +255,13 @@ PUT https://eventapp-backend-c8xe.onrender.com/api/events/1
   "category": "concert",
   "image": "https://eventapp-backend-c8xe.onrender.com/images/event1.jpg",
   "schedule": [
-    { "date": "2025-06-15", "location": "Athens" },
-    { "date": "2025-06-21", "location": "Thessaloniki" }
+    { "date": "2025-06-15", "location": "Athens", "lat": 37.9838, "lng": 23.7275 },
+    { "date": "2025-06-21", "location": "Thessaloniki", "lat": 37.9838, "lng": 23.7275 }
   ],
   "ticketTypes": [
     { "type": "General Admission", "price": 30, "availableTickets": 400 },
     { "type": "VIP", "price": 60, "availableTickets": 50 }
   ],
-  "favorited": false,
   "organizer": "223 Events ΙΚΕ",
   "tags": ["updated", "concert"]
 }
@@ -277,8 +278,8 @@ PUT https://eventapp-backend-c8xe.onrender.com/api/events/1
   "category": "concert",
   "image": "https://eventapp-backend-c8xe.onrender.com/images/event1.jpg",
   "schedule": [
-    { "date": "2025-06-15", "location": "Athens" },
-    { "date": "2025-06-21", "location": "Thessaloniki" }
+    { "date": "2025-06-15", "location": "Athens", "lat": 37.9838, "lng": 23.7275 },
+    { "date": "2025-06-21", "location": "Thessaloniki", "lat": 37.9838, "lng": 23.7275 }
   ],
   "ticketTypes": [
     { "type": "General Admission", "price": 30, "availableTickets": 400 },
@@ -346,8 +347,8 @@ This only updates `ticketTypes[0].price` to `35`.
   "eventId": 1,
   "title": "Giannis Haroulis Tour 2025",
   "schedule": [
-    { "date": "2025-06-15", "location": "Athens" },
-    { "date": "2025-06-20", "location": "Thessaloniki" }
+    { "date": "2025-06-15", "location": "Athens", "lat": 37.9838, "lng": 23.7275 },
+    { "date": "2025-06-20", "location": "Thessaloniki", "lat": 37.9838, "lng": 23.7275 }
   ],
   "ticketTypes": [
     { "type": "General Admission", "price": 35, "availableTickets": 400 },
@@ -393,8 +394,8 @@ This only updates `schedule[1].location` to `"Volos"`.
   "eventId": 1,
   "title": "Giannis Haroulis Tour 2025",
   "schedule": [
-    { "date": "2025-06-15", "location": "Athens" },
-    { "date": "2025-06-20", "location": "Volos" }
+    { "date": "2025-06-15", "location": "Athens", "lat": 37.9838, "lng": 23.7275 },
+    { "date": "2025-06-20", "location": "Volos", "lat": 37.9838, "lng": 23.7275 }
   ],
   "ticketTypes": [
     { "type": "General Admission", "price": 25, "availableTickets": 500 },
@@ -411,48 +412,157 @@ This only updates `schedule[1].location` to `"Volos"`.
 
 ---
 
-#### 3.c. Toggle Favorited Flag
+## ⭐ Favorite Events
+
+> **Note:** Every event document has both a MongoDB `_id` (ObjectId) and a numeric `eventId` (sequential).  
+> - **`_id`** is for internal MongoDB use.  
+> - **`eventId`** is an integer that starts at 1 and increments by 1 for each new event.  
+> - When you **CREATE** a new event via `POST`, you do **not** supply `eventId`—it’s assigned automatically.
+
+> **Note:** Every event document has `favorited` (Boolean) and it is set by default to false. 
+> - When you **CREATE** a new event via `POST`, you do **not** supply `favorited`—it’s assigned automatically.
+> - You can **CHANGE** the default state of `favorited` via the `POST` API of this section.
+
+
+### 4.a. List Favorited Events
 
 ```
-PATCH /api/events/:eventId/favorite
-```
-
-- `:eventId` — Numeric `eventId` of the event.  
-- This allows frontend to `favorite` or `unfavorite` an event (toggle heart icon).  
-- No authentication is required (currently not tied to users).
-
-**Example URL**:
-```
-PATCH https://eventapp-backend-c8xe.onrender.com/api/events/1/favorite
-```
-
-**Request Body** _(application/json)_:
-```json
-{ "favorited": true }
+GET /api/favorites
 ```
 
 **Success Response** _(200 OK)_:
+
 ```json
 {
-  "_id": "64a9e2c1f9b2f63320fa1e7d",
-  "eventId": 1,
-  "title": "Giannis Haroulis Tour 2025",
-  "schedule": [
-    { "date": "2025-06-15", "location": "Athens" },
-    { "date": "2025-06-20", "location": "Volos" }
-  ],
-  "ticketTypes": [
-    { "type": "General Admission", "price": 25, "availableTickets": 500 },
-    { "type": "VIP", "price": 50, "availableTickets": 100 }
-  ],
-  "favorited": true,
-  "organizer": "223 Events ΙΚΕ",
-  "tags": ["popular", "traditional", "live"],
-  "createdAt": "2025-05-20T12:00:00.000Z",
-  "updatedAt": "2025-05-31T12:30:00.000Z",
-  "__v": 0
+  "events": [
+    {
+      "_id": "64a9e2c1f9b2f63320fa1e7d",
+      "eventId": 1,
+      "title": "Giannis Haroulis Tour 2025",
+      "description": "Giannis Haroulis presents his summer tour entitled 'Come to the Dance'.",
+      "category": "concert",
+      "image": "https://eventapp-backend-c8xe.onrender.com/images/event1.jpg",
+      "schedule": [
+        { "date": "2025-06-15", "location": "Athens", "lat": 37.9838, "lng": 23.7275 },
+        { "date": "2025-06-20", "location": "Thessaloniki", "lat": 37.9838, "lng": 23.7275 }
+      ],
+      "ticketTypes": [
+        { "type": "General Admission", "price": 25, "availableTickets": 500 },
+        { "type": "VIP", "price": 50, "availableTickets": 100 }
+      ],
+      "favorited": true,
+      "organizer": "223 Events ΙΚΕ",
+      "tags": ["popular", "traditional", "live"],
+      "createdAt": "2025-05-20T12:00:00.000Z",
+      "updatedAt": "2025-05-20T12:00:00.000Z",
+      "__v": 0
+    }
+    /* …more events… */
+  ]
 }
 ```
+---
+### 4.b. Add Event to Favorited
+
+```
+POST /api/favorites
+```
+
+**Request Body** _(application/json)_:
+
+```json
+{
+  "eventId": 11
+}
+```
+
+**Success Response** _(201 Created)_:
+
+```json
+{
+	"message": "Event favorited"
+}
+```
+
+**Fail Response** _(409 Conflict)_:
+
+```json
+{
+	"message": "Already favorited"
+}
+```
+---
+### 4.c. Delete Event from Favorited
+
+```
+DELETE /api/favorites
+```
+
+**Request Body** _(application/json)_:
+
+```json
+{
+  "eventId": 11
+}
+```
+
+**Success Response** _(200 OK)_:
+
+```json
+{
+	"message": "Favorite removed"
+}
+```
+
+**Fail Response** _(404 Not Found)_:
+
+```json
+{
+	"message": "Favorite not found"
+}
+```
+
+---
+## 🎯 Recommended Events (by Categories)
+
+This route accepts a list of categories (e.g. `concert`, `sports`, etc.) and returns all events that match any of those.
+
+```
+POST /api/recoms
+```
+
+**Request Body** _(application/json)_:
+
+```json
+["concert", "theater"]
+```
+
+**Success Response** _(201 Created)_:
+
+```json
+[
+  {
+    "eventId": 1,
+    "title": "Giannis Haroulis Tour 2025",
+    "category": "concert",
+    "schedule": [...],
+    "ticketTypes": [...],
+    "favorited": false,
+    ...
+  },
+  {
+    "eventId": 3,
+    "title": "Sophocles' Antigone",
+    "category": "theater",
+    "schedule": [...],
+    "ticketTypes": [...],
+    "favorited": false,
+    ...
+  }
+]
+```
+
+> ℹ️ **Note:**  This endpoint is used by the frontend to load home screen events based on user-selected categories in the onboarding screen.
 
 ---
 
@@ -512,6 +622,14 @@ const eventSchema = new mongoose.Schema({
           type: String,
           required: true,
           trim: true
+        },
+        lat: {
+          type: Number,
+          required: false,
+        },
+        lng: {
+          type: Number,
+          required: false,
         }
       }
     ],
@@ -541,10 +659,6 @@ const eventSchema = new mongoose.Schema({
     required: true,
     validate: (v) => v.length > 0
   },
-  favorited: {
-    type: Boolean,
-    default: false
-  },
   tags: {
     type: [String],
     default: []
@@ -559,6 +673,13 @@ const eventSchema = new mongoose.Schema({
 // For text‐search on title/description/tags:
 eventSchema.index({ title: "text", description: "text", tags: "text" });
 ```
+---
+
+## 📁 New Files
+
+- `models/favorite.js` — MongoDB schema for storing user's favorite events.
+- `routes/favorites.js` — API for listing, adding, and removing favorites.
+- `routes/recoms.js` — API to fetch events by category (used in onboarding logic).
 
 ---
 

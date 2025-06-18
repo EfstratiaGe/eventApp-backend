@@ -332,28 +332,5 @@ router.patch('/:id/schedule/:index', async (req, res) => {
   }
 });
 
-// PATCH /api/events/:id/favorite — Toggle favorited flag
-router.patch('/:id/favorite', async (req, res) => {
-  try {
-    const id = parseInt(req.params.id, 10);
-    const { favorited } = req.body;
-
-    if (typeof favorited !== 'boolean') {
-      return res.status(400).json({ message: 'Favorited must be true or false' });
-    }
-
-    const event = await Event.findOneAndUpdate(
-      { eventId: id },
-      { favorited },
-      { new: true }
-    );
-
-    if (!event) return res.status(404).json({ message: 'Event not found' });
-    res.json(event);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
-
 
 module.exports = router;

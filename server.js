@@ -11,6 +11,7 @@ const path = require('path');
 const app       = express();
 const PORT      = process.env.PORT || 3000;
 const MONGO_URI = process.env.MONGO_URI;
+const favoriteRoutes = require('./routes/favorites');
 
 // --- Middleware ---
 app.use(cors());           // Enable CORS for all origins (customize in production)
@@ -26,6 +27,9 @@ app.use('/api/events', eventRoutes);
 
 // --- Images Route ---
 app.use('/images', express.static(path.join(__dirname, 'images')));
+
+// --- Favorite Route ---
+app.use('/api/favorites', favoriteRoutes);
 
 // --- MongoDB Connection & Server Startup ---
 mongoose.set('strictQuery', false);

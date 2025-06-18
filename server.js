@@ -7,8 +7,8 @@ const mongoose = require('mongoose');
 const cors     = require('cors');     // CORS middleware
 const eventRoutes = require('./routes/events');
 const recomsRoutes = require('./routes/recoms');
-const path = require('path');
 const favoriteRoutes = require('./routes/favorites');
+const path = require('path');
 
 const app       = express();
 const PORT      = process.env.PORT || 3000;

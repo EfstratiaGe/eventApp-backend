@@ -17,6 +17,15 @@ const scheduleSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true
+  },
+  // Optional geolocation (for maps)
+  lat: {
+    type: Number,
+    required: false,
+  },
+  lng: {
+    type: Number,
+    required: false,
   }
 }, { _id: false });
 
@@ -92,18 +101,6 @@ const eventSchema = new mongoose.Schema({
     type: [String],
     default: []
   },
-
-  // Optional geolocation (for maps)
-  lat: {
-    type: Number,
-    required: false,
-    default: null
-  },
-  lng: {
-    type: Number,
-    required: false,
-    default: null
-  }
 }, { timestamps: true });
 
 // Text index on title, description, and tags for optimized search

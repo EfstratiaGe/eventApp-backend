@@ -5,17 +5,15 @@
     "category": "concert",
     "image": "https://eventapp-backend-c8xe.onrender.com/images/event1.jpg",
     "schedule": [
-      { "date": "2025-06-15", "location": "Athens" },
-      { "date": "2025-06-20", "location": "Thessaloniki" }
+      { "date": "2025-06-15", "location": "Athens", "lat": 37.9838, "lng": 23.7275 },
+      { "date": "2025-06-20", "location": "Thessaloniki", "lat": 37.9838, "lng": 23.7275 }
     ],
     "ticketTypes": [
       { "type": "General Admission", "price": 25, "availableTickets": 500 },
       { "type": "VIP",               "price": 50, "availableTickets": 100 }
     ],
     "organizer": "223 Events ΙΚΕ",
-    "tags": ["popular", "traditional", "live"],
-    "lat": 37.9838,
-    "lng": 23.7275
+    "tags": ["popular", "traditional", "live"]
   },
   {
     "title": "La Femme Live in Athens",
@@ -23,16 +21,14 @@
     "category": "concert",
     "image": "https://eventapp-backend-c8xe.onrender.com/images/event2.jpeg",
     "schedule": [
-      { "date": "2025-07-10", "location": "Athens" }
+      { "date": "2025-07-10", "location": "Athens", "lat": 37.9838, "lng": 23.7275 }
     ],
     "ticketTypes": [
       { "type": "General Admission", "price": 30, "availableTickets": 300 },
       { "type": "VIP",               "price": 60, "availableTickets": 50 }
     ],
     "organizer": "French Institute of Greece",
-    "tags": ["rock", "indie", "live"],
-    "lat": 37.9838,
-    "lng": 23.7275
+    "tags": ["rock", "indie", "live"]
   },
   {
     "title": "Sophocles' Antigone",
@@ -40,17 +36,15 @@
     "category": "theater",
     "image": "https://eventapp-backend-c8xe.onrender.com/images/event3.jpg",
     "schedule": [
-      { "date": "2025-07-05", "location": "Epidaurus" },
-      { "date": "2025-07-06", "location": "Epidaurus" }
+      { "date": "2025-07-05", "location": "Epidaurus", "lat": 37.9838, "lng": 23.7275 },
+      { "date": "2025-07-06", "location": "Epidaurus", "lat": 37.9838, "lng": 23.7275 }
     ],
     "ticketTypes": [
       { "type": "Standard", "price": 20, "availableTickets": 400 },
       { "type": "Premium",  "price": 35, "availableTickets": 100 }
     ],
     "organizer": "Athens Epidaurus Festival",
-    "tags": ["ancient drama", "tragedy", "Sophocles"],
-    "lat": 37.9838,
-    "lng": 23.7275
+    "tags": ["ancient drama", "tragedy", "Sophocles"]
   },
   {
     "title": "Another Thebes",
@@ -58,16 +52,14 @@
     "category": "theater",
     "image": "https://eventapp-backend-c8xe.onrender.com/images/event4.webp",
     "schedule": [
-      { "date": "2025-08-10", "location": "Athens" }
+      { "date": "2025-08-10", "location": "Athens", "lat": 37.9838, "lng": 23.7275 }
     ],
     "ticketTypes": [
       { "type": "Standard", "price": 15, "availableTickets": 200 },
       { "type": "Student",  "price": 10, "availableTickets": 100 }
     ],
     "organizer": "Knosos Theater Productions Eu",
-    "tags": ["modern", "contemporary", "drama", "performance"],
-    "lat": 37.9838,
-    "lng": 23.7275
+    "tags": ["modern", "contemporary", "drama", "performance"]
   },
   {
     "title": "Red Bull Showrun by ALUMIL",
@@ -75,16 +67,14 @@
     "category": "sports",
     "image": "https://eventapp-backend-c8xe.onrender.com/images/event5.jpg",
     "schedule": [
-      { "date": "2025-09-15", "location": "Athens" }
+      { "date": "2025-09-15", "location": "Athens", "lat": 37.9838, "lng": 23.7275 }
     ],
     "ticketTypes": [
       { "type": "General Admission", "price": 20, "availableTickets": 1000 },
       { "type": "Pit Access",         "price": 50, "availableTickets": 200 }
     ],
     "organizer": "Red Bull",
-    "tags": ["cars", "demonstrations", "speed"],
-    "lat": 37.9838,
-    "lng": 23.7275
+    "tags": ["cars", "demonstrations", "speed"]
   },
   {
     "title": "Athens Marathon 2025",
@@ -92,16 +82,14 @@
     "category": "sports",
     "image": "https://eventapp-backend-c8xe.onrender.com/images/event6.jpg",
     "schedule": [
-      { "date": "2025-11-10", "location": "Athens" }
+      { "date": "2025-11-10", "location": "Athens", "lat": 37.9838, "lng": 23.7275 }
     ],
     "ticketTypes": [
       { "type": "Full Marathon", "price": 50, "availableTickets": 500 },
       { "type": "10K Run",       "price": 30, "availableTickets": 300 }
     ],
     "organizer": "Association of Greek Gymnastics Sports Clubs",
-    "tags": ["running", "marathon", "sports"],
-    "lat": 37.9838,
-    "lng": 23.7275
+    "tags": ["running", "marathon", "sports"]
   },
   {
     "title": "Athens Epidaurus Festival 2025",
@@ -109,17 +97,15 @@
     "category": "festival",
     "image": "https://eventapp-backend-c8xe.onrender.com/images/event7.jpg",
     "schedule": [
-      { "date": "2025-06-01", "location": "Athens" },
-      { "date": "2025-06-15", "location": "Epidaurus" }
+      { "date": "2025-06-01", "location": "Athens", "lat": 37.9838, "lng": 23.7275 },
+      { "date": "2025-06-15", "location": "Epidaurus", "lat": 37.9838, "lng": 23.7275 }
     ],
     "ticketTypes": [
       { "type": "Standard", "price": 25, "availableTickets": 500 },
       { "type": "VIP",      "price": 50, "availableTickets": 100 }
     ],
     "organizer": "Athens Epidaurus Festival",
-    "tags": ["theater", "music", "culture"],
-    "lat": 37.9838,
-    "lng": 23.7275
+    "tags": ["theater", "music", "culture"]
   },
   {
     "title": "Rockwave Festival 2025",
@@ -127,16 +113,14 @@
     "category": "festival",
     "image": "https://eventapp-backend-c8xe.onrender.com/images/event8.jpg",
     "schedule": [
-      { "date": "2025-07-20", "location": "Malakasa" }
+      { "date": "2025-07-20", "location": "Malakasa", "lat": 37.9838, "lng": 23.7275 }
     ],
     "ticketTypes": [
       { "type": "General Admission", "price": 40, "availableTickets": 1000 },
       { "type": "VIP",               "price": 80, "availableTickets": 200 }
     ],
     "organizer": "X LA LA LA PRESENTS Sole PPC",
-    "tags": ["rock", "music", "festival"],
-    "lat": 37.9838,
-    "lng": 23.7275
+    "tags": ["rock", "music", "festival"]
   },
   {
     "title": "Athens Tech Conference 2025",
@@ -144,16 +128,14 @@
     "category": "conference",
     "image": "https://eventapp-backend-c8xe.onrender.com/images/event9.webp",
     "schedule": [
-      { "date": "2025-09-10", "location": "Athens" }
+      { "date": "2025-09-10", "location": "Athens", "lat": 37.9838, "lng": 23.7275 }
     ],
     "ticketTypes": [
       { "type": "Standard", "price": 100, "availableTickets": 300 },
       { "type": "Student",  "price": 50,  "availableTickets": 150 }
     ],
     "organizer": "HETiA",
-    "tags": ["technology", "conference", "innovation"],
-    "lat": 37.9838,
-    "lng": 23.7275
+    "tags": ["technology", "conference", "innovation"]
   },
   {
     "title": "Comedy Nights Athens",
@@ -161,16 +143,14 @@
     "category": "comedy",
     "image": "https://eventapp-backend-c8xe.onrender.com/images/event10.jpg",
     "schedule": [
-      { "date": "2025-08-15", "location": "Athens" },
-      { "date": "2025-08-16", "location": "Athens" }
+      { "date": "2025-08-15", "location": "Athens", "lat": 37.9838, "lng": 23.7275 },
+      { "date": "2025-08-16", "location": "Athens", "lat": 37.9838, "lng": 23.7275 }
     ],
     "ticketTypes": [
       { "type": "Standard", "price": 20, "availableTickets": 150 },
       { "type": "VIP",      "price": 40, "availableTickets": 50 }
     ],
     "organizer": "I.TH.A.C.A.",
-    "tags": ["comedy", "standup", "entertainment"],
-    "lat": 37.9838,
-    "lng": 23.7275
+    "tags": ["comedy", "standup", "entertainment"]
   }
 ]

@@ -153,8 +153,11 @@ router.get('/', async (req, res) => {
 
       e.schedule = e.schedule.map(s => ({
         date: s.date.toISOString().slice(0, 10),
-        location: s.location
+        location: s.location,
+        lat: s.lat,
+        lng: s.lng
       }));
+
       e.favorited = favoriteIds.includes(e.eventId);
 
       return e;
@@ -188,7 +191,9 @@ router.get('/:id', async (req, res) => {
     // Format schedule dates to YYYY-MM-DD
     e.schedule = e.schedule.map(s => ({
       date: s.date.toISOString().slice(0, 10),
-      location: s.location
+      location: s.location,
+      lat: s.lat,
+      lng: s.lng
     }));
 
     e.favorited = !!isFavorited;

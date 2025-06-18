@@ -19,14 +19,14 @@ const scheduleSchema = new mongoose.Schema({
     trim: true
   },
   // Optional geolocation (for maps)
-  /*lat: {
+  lat: {
     type: Number,
     required: false,
   },
   lng: {
     type: Number,
     required: false,
-  }*/
+  }
 }, { _id: false });
 
 // Schema for ticket types (e.g., General, VIP)

@@ -1,53 +1,73 @@
 const express = require('express');
 const router = express.Router();
-const Favorite = require('../models/favorite');
 const Event = require('../models/event');
+const Favorite = require('../models/favorite');
 
 // TEMP DUMMY USER (until login system is built)
 const DUMMY_USER_ID = 'guest123';
 
-// GET /api/favorites/:userId — all favorite events for a user
-router.get('/:userId', async (req, res) => {
+
+// GET /api/favorites — Get all favorite events for the dummy user
+router.get('/', async (req, res) => {
   try {
-    const userId = req.params.userId;
-    const favs = await Favorite.find({ userId });
+    const favs = await Favorite.find({ userId: DUMMY_USER_ID });
     const eventIds = favs.map(f => f.eventId);
 
     const events = await Event.find({ eventId: { $in: eventIds } }).lean();
 
+    // Tag them as favorited = true (frontend expects this)
     events.forEach(e => {
       e.favorited = true;
     });
 
     res.json(events);
   } catch (err) {
+    console.error(err);
     res.status(500).json({ message: 'Error fetching favorites.' });
   }
 });
 
-// POST /api/favorites — add to favorites
+
+// POST /api/favorites — Add a favorite
 router.post('/', async (req, res) => {
   try {
-    const { userId, eventId } = req.body;
-
-    const fav = new Favorite({ userId, eventId });
-    await fav.save();
-    res.status(201).json(fav);
-  } catch (err) {
-    if (err.code === 11000) {
-      return res.status(400).json({ message: 'Already favorited' });
+    const { eventId } = req.body;
+    if (!eventId) {
+      return res.status(400).json({ message: 'Missing eventId' });
     }
+
+    const existing = await Favorite.findOne({ userId: DUMMY_USER_ID, eventId });
+    if (existing) {
+      return res.status(409).json({ message: 'Already favorited' });
+    }
+
+    const favorite = new Favorite({ userId: DUMMY_USER_ID, eventId });
+    await favorite.save();
+
+    res.status(201).json({ message: 'Event favorited' });
+  } catch (err) {
+    console.error(err);
     res.status(500).json({ message: 'Error saving favorite.' });
   }
 });
 
-// DELETE /api/favorites — remove from favorites
+
+// DELETE /api/favorites — Remove a favorite
 router.delete('/', async (req, res) => {
   try {
-    const { userId, eventId } = req.body;
-    await Favorite.deleteOne({ userId, eventId });
+    const { eventId } = req.body;
+    if (!eventId) {
+      return res.status(400).json({ message: 'Missing eventId' });
+    }
+
+    const deleted = await Favorite.findOneAndDelete({ userId: DUMMY_USER_ID, eventId });
+    if (!deleted) {
+      return res.status(404).json({ message: 'Favorite not found' });
+    }
+
     res.json({ message: 'Favorite removed' });
   } catch (err) {
+    console.error(err);
     res.status(500).json({ message: 'Error deleting favorite.' });
   }
 });

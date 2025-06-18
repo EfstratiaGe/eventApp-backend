@@ -7,7 +7,7 @@ const DUMMY_USER_ID = 'guest123';
 
 
 const ALLOWED_CATEGORIES = [
-  'concert','theatre','sports','festival',
+  'concert','theater','sports','festival',
   'conference','comedy','workshop',
   'exhibition','movie','other'
 ];

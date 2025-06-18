@@ -32,8 +32,8 @@
   },
   {
     "title": "Sophocles' Antigone",
-    "description": "Sophocles' classic tragedy is presented at the Ancient Theatre of Epidaurus.",
-    "category": "theatre",
+    "description": "Sophocles' classic tragedy is presented at the Ancient Theater of Epidaurus.",
+    "category": "theater",
     "image": "https://eventapp-backend-c8xe.onrender.com/images/event3.jpg",
     "schedule": [
       { "date": "2025-07-05", "location": "Epidaurus" },
@@ -49,7 +49,7 @@
   {
     "title": "Another Thebes",
     "description": "A contemporary theatrical performance that explores human relationships.",
-    "category": "theatre",
+    "category": "theater",
     "image": "https://eventapp-backend-c8xe.onrender.com/images/event4.webp",
     "schedule": [
       { "date": "2025-08-10", "location": "Athens" }
@@ -58,7 +58,7 @@
       { "type": "Standard", "price": 15, "availableTickets": 200 },
       { "type": "Student",  "price": 10, "availableTickets": 100 }
     ],
-    "organizer": "Knosos Theatre Productions Eu",
+    "organizer": "Knosos Theater Productions Eu",
     "tags": ["modern", "contemporary", "drama", "performance"]
   },
   {
@@ -105,7 +105,7 @@
       { "type": "VIP",      "price": 50, "availableTickets": 100 }
     ],
     "organizer": "Athens Epidaurus Festival",
-    "tags": ["theatre", "music", "culture"]
+    "tags": ["theater", "music", "culture"]
   },
   {
     "title": "Rockwave Festival 2025",

@@ -8,11 +8,12 @@ const cors     = require('cors');     // CORS middleware
 const eventRoutes = require('./routes/events');
 const recomsRoutes = require('./routes/recoms');
 const path = require('path');
+const favoriteRoutes = require('./routes/favorites');
 
 const app       = express();
 const PORT      = process.env.PORT || 3000;
 const MONGO_URI = process.env.MONGO_URI;
-const favoriteRoutes = require('./routes/favorites');
+
 
 // --- Middleware ---
 app.use(cors());           // Enable CORS for all origins (customize in production)
@@ -27,11 +28,11 @@ app.get('/healthz', (req, res) => {
 app.use('/api/events', eventRoutes);
 app.use('/api/recoms', recomsRoutes);
 
-// --- Images Route ---
-app.use('/images', express.static(path.join(__dirname, 'images')));
-
 // --- Favorite Route ---
 app.use('/api/favorites', favoriteRoutes);
+
+// --- Images Route ---
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 // --- MongoDB Connection & Server Startup ---
 mongoose.set('strictQuery', false);

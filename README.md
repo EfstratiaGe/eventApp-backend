@@ -88,7 +88,7 @@ GET /api/events
 | ----------------------- | ------------------------------------------------------------------------------------------------- |
 | `search`                | Full-text search on `title`, `description`, or `tags`.                                            |
 | `city`                  | Case-insensitive match on any `schedule.location`.                                                |
-| `category`              | One of: `concert`, `theatre`, `sports`, `festival`, `conference`, `comedy`, `workshop`, etc.     |
+| `category`              | One of: `concert`, `theater`, `sports`, `festival`, `conference`, `comedy`, `workshop`, etc.     |
 | `dateFrom`              | ISO date; include events with at least one `schedule.date >= dateFrom`.                           |
 | `dateTo`                | ISO date; include events with at least one `schedule.date <= dateTo`.                             |
 | `availableOnly`         | `true`/`false`; if `true`, only events having any `ticketType.availableTickets > 0`.             |
@@ -491,7 +491,7 @@ const eventSchema = new mongoose.Schema({
     type: String,
     required: true,
     enum: [
-      "concert", "theatre", "sports", "festival",
+      "concert", "theater", "sports", "festival",
       "conference", "comedy", "workshop", "exhibition",
       "movie", "other"
     ]

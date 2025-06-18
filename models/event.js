@@ -91,6 +91,18 @@ const eventSchema = new mongoose.Schema({
   tags: {
     type: [String],
     default: []
+  },
+
+  // Optional geolocation (for maps)
+  lat: {
+    type: Number,
+    required: false,
+    default: null
+  },
+  lng: {
+    type: Number,
+    required: false,
+    default: null
   }
 }, { timestamps: true });
 

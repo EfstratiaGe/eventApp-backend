@@ -13,7 +13,9 @@
       { "type": "VIP",               "price": 50, "availableTickets": 100 }
     ],
     "organizer": "223 Events ΙΚΕ",
-    "tags": ["popular", "traditional", "live"]
+    "tags": ["popular", "traditional", "live"],
+    "lat": 37.9838,
+    "lng": 23.7275
   },
   {
     "title": "La Femme Live in Athens",
@@ -28,7 +30,9 @@
       { "type": "VIP",               "price": 60, "availableTickets": 50 }
     ],
     "organizer": "French Institute of Greece",
-    "tags": ["rock", "indie", "live"]
+    "tags": ["rock", "indie", "live"],
+    "lat": 37.9838,
+    "lng": 23.7275
   },
   {
     "title": "Sophocles' Antigone",
@@ -44,7 +48,9 @@
       { "type": "Premium",  "price": 35, "availableTickets": 100 }
     ],
     "organizer": "Athens Epidaurus Festival",
-    "tags": ["ancient drama", "tragedy", "Sophocles"]
+    "tags": ["ancient drama", "tragedy", "Sophocles"],
+    "lat": 37.9838,
+    "lng": 23.7275
   },
   {
     "title": "Another Thebes",
@@ -59,7 +65,9 @@
       { "type": "Student",  "price": 10, "availableTickets": 100 }
     ],
     "organizer": "Knosos Theater Productions Eu",
-    "tags": ["modern", "contemporary", "drama", "performance"]
+    "tags": ["modern", "contemporary", "drama", "performance"],
+    "lat": 37.9838,
+    "lng": 23.7275
   },
   {
     "title": "Red Bull Showrun by ALUMIL",
@@ -74,7 +82,9 @@
       { "type": "Pit Access",         "price": 50, "availableTickets": 200 }
     ],
     "organizer": "Red Bull",
-    "tags": ["cars", "demonstrations", "speed"]
+    "tags": ["cars", "demonstrations", "speed"],
+    "lat": 37.9838,
+    "lng": 23.7275
   },
   {
     "title": "Athens Marathon 2025",
@@ -89,7 +99,9 @@
       { "type": "10K Run",       "price": 30, "availableTickets": 300 }
     ],
     "organizer": "Association of Greek Gymnastics Sports Clubs",
-    "tags": ["running", "marathon", "sports"]
+    "tags": ["running", "marathon", "sports"],
+    "lat": 37.9838,
+    "lng": 23.7275
   },
   {
     "title": "Athens Epidaurus Festival 2025",
@@ -105,7 +117,9 @@
       { "type": "VIP",      "price": 50, "availableTickets": 100 }
     ],
     "organizer": "Athens Epidaurus Festival",
-    "tags": ["theater", "music", "culture"]
+    "tags": ["theater", "music", "culture"],
+    "lat": 37.9838,
+    "lng": 23.7275
   },
   {
     "title": "Rockwave Festival 2025",
@@ -120,7 +134,9 @@
       { "type": "VIP",               "price": 80, "availableTickets": 200 }
     ],
     "organizer": "X LA LA LA PRESENTS Sole PPC",
-    "tags": ["rock", "music", "festival"]
+    "tags": ["rock", "music", "festival"],
+    "lat": 37.9838,
+    "lng": 23.7275
   },
   {
     "title": "Athens Tech Conference 2025",
@@ -135,7 +151,9 @@
       { "type": "Student",  "price": 50,  "availableTickets": 150 }
     ],
     "organizer": "HETiA",
-    "tags": ["technology", "conference", "innovation"]
+    "tags": ["technology", "conference", "innovation"],
+    "lat": 37.9838,
+    "lng": 23.7275
   },
   {
     "title": "Comedy Nights Athens",
@@ -151,6 +169,8 @@
       { "type": "VIP",      "price": 40, "availableTickets": 50 }
     ],
     "organizer": "I.TH.A.C.A.",
-    "tags": ["comedy", "standup", "entertainment"]
+    "tags": ["comedy", "standup", "entertainment"],
+    "lat": 37.9838,
+    "lng": 23.7275
   }
 ]

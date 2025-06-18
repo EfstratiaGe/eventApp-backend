@@ -76,8 +76,9 @@ Default `PORT` for the local Base URL is **10000** if not set in `.env`.
 > - **`eventId`** is an integer that starts at 1 and increments by 1 for each new event.  
 > - When you **CREATE** a new event via `POST`, you do **not** supply `eventId`—it’s assigned automatically.
 
-> **Note:** Every event document has `favorited` (Boolean) and it is set by default to false. 
-> - When you **CREATE** a new event via `POST`, you do **not** supply `favorited`—it’s assigned automatically.
+> **Note:** Each event in the response includes a dynamic `favorited` field (Boolean).  
+> It indicates whether the event is favorited by the current user (default: false).  
+> This field is **not stored** in the MongoDB document but computed during response.
 
 #### 2.a. List Events
 
@@ -419,8 +420,9 @@ This only updates `schedule[1].location` to `"Volos"`.
 > - **`eventId`** is an integer that starts at 1 and increments by 1 for each new event.  
 > - When you **CREATE** a new event via `POST`, you do **not** supply `eventId`—it’s assigned automatically.
 
-> **Note:** Every event document has `favorited` (Boolean) and it is set by default to false. 
-> - When you **CREATE** a new event via `POST`, you do **not** supply `favorited`—it’s assigned automatically.
+> **Note:** Each event in the response includes a dynamic `favorited` field (Boolean).  
+> It indicates whether the event is favorited by the current user (default: false).  
+> This field is **not stored** in the MongoDB document but computed during response.
 > - You can **CHANGE** the default state of `favorited` via the `POST` API of this section.
 
 
@@ -537,7 +539,7 @@ POST /api/recoms
 ["concert", "theater"]
 ```
 
-**Success Response** _(201 Created)_:
+**Success Response** _(200 OK)_:
 
 ```json
 [
@@ -580,6 +582,7 @@ Below is the Mongoose schema structure. When reading or writing events:
 
 - **`_id`** is MongoDB’s default ObjectId (always present).  
 - **`eventId`** is a required, unique Number, auto‐incremented (1, 2, 3, …).
+- `lat`, `lng` (optional): Geographic coordinates for each schedule entry (used in Google Maps view).
 
 ```js
 const eventSchema = new mongoose.Schema({

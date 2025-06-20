@@ -1,6 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 const Event   = require('../models/event');
+const Favorite = require('../models/favorite');
 
 const DUMMY_USER_ID = 'guest123'; 
 

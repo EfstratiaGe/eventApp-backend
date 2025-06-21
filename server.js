@@ -8,8 +8,13 @@ const cors     = require('cors');     // CORS middleware
 const path = require('path');
 const eventRoutes = require('./routes/events');
 const recomsRoutes = require('./routes/recoms');
+<<<<<<< Updated upstream
 const favoriteRoutes = require('./routes/favorites');
 
+=======
+const usersRoutes = require('./routes/users');
+const path = require('path');
+>>>>>>> Stashed changes
 
 const app       = express();
 const PORT      = process.env.PORT || 3000;
@@ -27,8 +32,19 @@ app.get('/healthz', (req, res) => {
 
 // --- Event Routes ---
 app.use('/api/events', eventRoutes);
+
+// --- Recommendations Routes ---
 app.use('/api/recoms', recomsRoutes);
 
+<<<<<<< Updated upstream
+=======
+// --- User Routes ---
+app.use('/api/users', usersRoutes);
+
+// --- Images Route ---
+app.use('/images', express.static(path.join(__dirname, 'images')));
+
+>>>>>>> Stashed changes
 // --- Favorite Route ---
 app.use('/api/favorites', favoriteRoutes);
 

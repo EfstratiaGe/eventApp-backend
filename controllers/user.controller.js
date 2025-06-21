@@ -19,7 +19,7 @@ const createUser = async(req, res) => {
     let user = await UserModel.findOne({name: req.body.name});
 
     if(user){
-        return res.send({ success: false, message: 'User already exist!' });
+        return res.status(409).send("User already exists");
     }
 
     const body = req.body;

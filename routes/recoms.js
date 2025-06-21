@@ -30,7 +30,7 @@ router.post('/', async (req, res) => {
 
       // return new event object with formatted schedule
       return {
-        ...event.toObject(),   // convert mongoose doc to plain object
+        ...event,   // convert mongoose doc to plain object
         schedule: formattedSchedule
       };
     });

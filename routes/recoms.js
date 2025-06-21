@@ -7,7 +7,6 @@ const DUMMY_USER_ID = 'guest123';
 
 router.post('/', async (req, res) => {
   try {
-
     const categories = req.body;
     const events = await Event.find({ category: { $in: categories }}).lean();
 
@@ -21,7 +20,22 @@ router.post('/', async (req, res) => {
       favorited: favoriteEventIds.has(event.eventId),
     }));
 
-    res.send(enrichedEvents);
+    // map over events array
+    const formattedEvents = enrichedEvents.map(event => {
+      // map over schedule array inside each event
+      const formattedSchedule = event.schedule.map(s => ({
+        date: new Date(s.date).toISOString().slice(0, 10),
+        location: s.location
+      }));
+
+      // return new event object with formatted schedule
+      return {
+        ...event.toObject(),   // convert mongoose doc to plain object
+        schedule: formattedSchedule
+      };
+    });
+
+    res.send(formattedEvents);
 
   } catch (error) {
     res.status(500).json({ message: error.message });

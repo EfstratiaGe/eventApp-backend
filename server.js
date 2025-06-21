@@ -35,9 +35,6 @@ app.use('/api/recoms', recomsRoutes);
 // --- User Routes ---
 app.use('/api/users', usersRoutes);
 
-// --- Images Route ---
-app.use('/images', express.static(path.join(__dirname, 'images')));
-
 // --- Favorite Route ---
 app.use('/api/favorites', favoriteRoutes);
 

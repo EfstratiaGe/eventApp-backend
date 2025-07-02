@@ -57,6 +57,91 @@ Default `PORT` for the local Base URL is **10000** if not set in `.env`.
 
 ---
 
+## 📂 Project Structure
+
+```pgsql
+eventApp-backend/
+├── controllers/
+│   └── user.controller.js       # Controller for user actions
+├── data/
+│   ├── events.json              # Sample event data
+│   └── seed.js                  # Seeder script
+├── images/                      # Local images served by server (event photos)
+├── models/
+│   ├── event.js                 # Event schema
+│   ├── favorite.js              # Favorite events schema
+│   └── user.js                  # User schema
+├── routes/
+│   ├── events.js                # Event API routes
+│   ├── favorites.js             # Favorites API routes
+│   ├── recoms.js                # Recommendations API routes
+│   └── users.js                 # User API routes
+├── .env                         # Environment variables (not committed)
+├── .env.example                 # Example env file
+├── .gitignore
+├── LICENSE
+├── package.json
+├── package-lock.json
+├── README.md
+└── server.js                    # Main server entry point
+```
+
+---
+
+## 🗺️ Routes Overview
+
+    | Method | Endpoint                          | Description                            |
+    |--------|-----------------------------------|----------------------------------------|
+    | GET    | /healthz                          | Health check                           |
+
+
+### Events Routes
+
+    | Method | Endpoint                          | Description                            |
+    |--------|-----------------------------------|----------------------------------------|
+    | GET    | /events                           | List events (with filters/pagination)  |
+    | POST   | /events                           | Create new event                       |
+    | GET    | /events/:eventId                  | Get single event by ID                 |
+    | PUT    | /events/:eventId                  | Replace entire event                   |
+    | DELETE | /events/:eventId                  | Delete event by ID                     |
+    | PATCH  | /events/:eventId/ticketTypes/:i   | Update ticket type (by index)          |
+    | PATCH  | /events/:eventId/schedule/:i      | Update schedule entry (by index)       |
+
+
+### Favorites Routes
+
+    | Method | Endpoint                          | Description                            |
+    |--------|-----------------------------------|----------------------------------------|
+    | GET    | /favorites                        | List favorited events                  |
+    | POST   | /favorites                        | Add event to favorites                 |
+    | DELETE | /favorites                        | Remove event from favorites            |
+
+
+### Recommendations Routes
+
+    | Method | Endpoint                          | Description                            |
+    |--------|-----------------------------------|----------------------------------------|
+    | POST   | /recoms                           | Get events by categories               |
+
+
+### Users Routes
+
+    | Method | Endpoint                          | Description                            |
+    |--------|-----------------------------------|----------------------------------------|
+    | POST   | /users                            | Register new user                      |
+    | POST   | /users/login                      | Login user                             |
+    | GET    | /users                            | Get all users                          |
+    | GET    | /users/:id                        | Get user by ID                         |
+    | PUT    | /users/:id                        | Update user                            |
+    | DELETE | /users/:id                        | Delete user                            |
+
+
++ **Note:** ```The Users API is currently a simple dummy setup without authentication. ```
+
+
+---
+
+
 ## 🔌 API Endpoints
 
 > **Note:** All endpoints return JSON payloads.
@@ -375,6 +460,11 @@ PATCH /api/events/:eventId/schedule/:index
 - `:eventId` — Numeric `eventId` of the event.  
 - `:index` — zero-based index within the `schedule` array.  
 - Body can include either `date` (ISO string) or `location`, or both.
++ Body can include any of the following fields:
++ - `date` (ISO string)
++ - `location` (String)
++ - `lat` (Number)
++ - `lng` (Number)
 
 **Example URL**:
 ```
@@ -525,6 +615,100 @@ DELETE /api/favorites
 ```
 
 ---
+
+## 👤 Users
+
+
+### 5.a. User Login
+
+```
+POST /api/users/login
+```
+
+- Authenticate user with credentials (e.g. email/password).
+
+- Currently no authentication tokens implemented.
+
+
+**Request Body** _(application/json)_:
+
+```json
+{
+  "email": "user@example.com",
+  "password": "password123"
+}
+```
+
+**Success Response** _(200 OK)_:
+
+```json
+{
+  "message": "Login successful",
+  "user": {
+    "_id": "64bbf2f47acb8e2c843ab123",
+    "name": "John Doe",
+    "email": "user@example.com"
+  }
+}
+```
+
+
+### 5.b. Create User (Registration)
+
+```
+POST /api/users
+```
+
+- Create a new user.
+
+
+**Request Body** _(application/json)_:
+
+```json
+{
+  "name": "John Doe",
+  "email": "user@example.com",
+  "password": "password123"
+}
+```
+
+### 5.c. Get All Users
+
+```
+GET /api/users
+```
+
+- Retrieves a list of all users.
+
+
+### 5.d. Get Single User by ID
+
+```
+GET /api/users/:id
+```
+
+- Retrieves user information by MongoDB ObjectId.
+
+
+### 5.e. Update User by ID
+
+```
+PUT /api/users/:id
+```
+
+- Update all user fields by ID.
+
+
+### 5.f. Delete User by ID
+
+```
+DELETE /api/users/:id
+```
+
+- Deletes user from database.
+
+---
+
 ## 🎯 Recommended Events (by Categories)
 
 This route accepts a list of categories (e.g. `concert`, `sports`, etc.) and returns all events that match any of those.
@@ -573,6 +757,24 @@ POST /api/recoms
 - **Never** commit your real `.env` file.  
 - Ensure `.env` is listed in `.gitignore`.  
 - Use environment variables for **all** secrets (database URIs, API keys).
+
+---
+
+## 🧪 Testing
+
+Currently, no automated tests are implemented. You can test routes via:
+
+- Postman / Insomnia
+- Android App frontend
+- CURL or browser for GET requests
+
+---
+
+## 🔐 Authentication & Future Improvements
+
++ Currently, `Tickest backend does not implement authentication ` or authorization.
++ The Users API exists as a simple CRUD for now.
+
 
 ---
 
@@ -678,20 +880,87 @@ eventSchema.index({ title: "text", description: "text", tags: "text" });
 ```
 ---
 
-## 📁 New Files
 
-- `models/favorite.js` — MongoDB schema for storing user's favorite events.
-- `routes/favorites.js` — API for listing, adding, and removing favorites.
-- `routes/recoms.js` — API to fetch events by category (used in onboarding logic).
+## 📱 Frontend Repository
+
+The frontend code for **Tickest** is hosted separately at:
+
+[https://github.com/kostasmr/Frontend-Events.git](https://github.com/kostasmr/Frontend-Events.git)
+
+---
+
+## 🎨 UI Design & Mockups
+
+The UI mockup that inspired this app’s design can be viewed on Figma:
+
+[Event Booking App UI Kit — Community](https://www.figma.com/design/G0YAXUaPiufBUIwHtjuXM4/Event-Booking-App-UI-Kit---Community--Community-?node-id=2400-6373&t=Z6nSfdmlUjqkUrCw-0)
+
+---
+
+## 📝 Project Management & Methodology
+
+We followed **SCRUM methodology** and defined user stories using Figma Boards, available here:
+
+[SCRUM & User Stories Board](https://www.figma.com/board/29jOPVUcDpDFfoYWw1SwVb/Event-Booking---Socialive?node-id=0-1&t=MmXTuyYjM010hU6k-0)
+
+---
+
+## 📊 Sprint Presentations
+
+The sprint PowerPoint presentations documenting progress and planning are available in the `Sprints/` folder in this repository.
+
+### Sprint 1
+
+- [1st Sprint CODE Presentation](./Sprints/Sprint1/1st_Sprint_CODE_Presentation.pptx)  
+- [Events Demo Video](./Sprints/Sprint1/EventsDemo.mp4)
+
+### Sprint 2
+
+- [2nd Sprint CODE Presentation](./Sprints/Sprint2/2nd_Sprint_CODE_Presentation.pptx)  
+- [TICKEST Demo Video](./Sprints/Sprint2/TICKEST_DEMO_FINAL.mp4)
 
 ---
 
 ## 🚀 Next Steps
 
-**Frontend Integration**: Make sure your Android app’s base URL is set to  
-   ```
-   https://eventapp-backend-c8xe.onrender.com/api/
-   ```
+### Feature Development
+
++ **Organizer Profile & Management**
+    - Create dedicated organizer profiles linked to the `users` collection in MongoDB.
+    - Allow organizers to manage and publish their own events with role-based access control.
++ **Popular Events Feature**
+    - Track event popularity by clicks or user interactions.
+    - Implement backend analytics or counters to rank and serve popular events dynamically.
++ **Booked Tickets & User Connections**
+    - Build a `bookings` or `tickets` collection linking booked tickets to specific users.
+    - Enable users to view and manage their bookings in their profile.
++ **User Profile Enhancements**
+    - Support profile photos and event galleries per user to personalize their accounts.
+    - Allow users to upload images and manage media associated with their profiles.
++ **Event Chat / Messaging**
+    - Implement or enhance event-specific chat rooms for inter-user communication.
+    - Consider real-time messaging using WebSockets or libraries like Socket.io.
++ **Notifications & Alerts**
+    - Add push or email notifications for users about low ticket availability on their favorited events.
+    - Implement scheduling and background jobs to monitor ticket counts and trigger alerts.
+
+
+### Technical & Infrastructure Improvements
+
++ **User Authentication & Authorization**
+    - Implement JWT-based authentication for secure login and protected routes.
+    - Manage user roles (e.g., organizer, attendee) with access control.
++ **API Documentation**
+    - Generate Swagger/OpenAPI docs for all backend routes to simplify frontend development and onboarding.
++ **Automated Testing**
+    - Write unit and integration tests for backend APIs to ensure stability and facilitate future development.
++ **CI/CD Pipeline**
+    - Automate deployment processes for backend and frontend with continuous integration and delivery.
++ **Performance & Scalability**
+    - Optimize database queries and indexing for faster response times.
+    - Consider caching frequently requested data (e.g., popular events).
++ **Security Enhancements**
+    - Validate and sanitize all inputs to prevent injection attacks.
+    - Use HTTPS, secure headers, and environment variable management best practices.
 
 ---
-
